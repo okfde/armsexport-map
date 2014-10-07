@@ -11,14 +11,43 @@ body
   text-align: center
   font-family: sans-serif
 
-h1
-  color: rgba(0, 0, 0, .3)
-  font-weight: bold
-  font-size: 32px
-  letter-spacing: -1px
-  text-transform: uppercase
-  text-shadow: 0 1px 0 rgba(255, 255, 255, .5)
-  background: url("../images/middleman.png") no-repeat center 100px
-  padding: 350px 0 10px
-  margin: 0
-
+$map-height: 600px
+#map-container
+  @include outer-container()
+  position: relative
+  #map
+    @include span-columns(9)
+    @include omega()
+    height: $map-height
+  #misc
+    @include span-columns(3)
+    background: #fff
+    height: $map-height
+    position: relative
+    #info
+      padding: 10px
+    #legend
+      position: absolute
+      border-top: 1px solid #333
+      background: #dedede
+      bottom: 0
+      left: 0
+      height: 100px
+      width: 100%
+  #filter
+    position: absolute
+    z-index: 2
+    bottom: 50px
+    background: rgba(255,255,255,0.7)
+    border: 1px solid #cecece
+    border-left: none
+    padding: 20px
+    #type-filter
+      li
+        padding: 0.3em
+        clear: left
+        button
+          float: left
+          font-size: 0.8em
+          &.active
+            background: red
