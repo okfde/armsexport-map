@@ -1,0 +1,26 @@
+{
+  "name": "bicc-map",
+  "version": "0.0.1",
+  "homepage": "https://github.com/milafrerichs/middleman-template",
+  "authors": [
+    "Mila Frerichs <mila.frerichs@gmail.com>"
+  ],
+  "description": "BICC map for armsexport",
+  "main": "index.html",
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "underscore":"",
+    "leaflet":"",
+    "mapbox.js":"",
+    "d3":"",
+    "topojson":""
+  }
+}
