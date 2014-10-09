@@ -1,28 +1,27 @@
 %h1 BICC
 #map-container
-  #filter
-    #type-filter
-      /* tabs von refill */
-      %ul
-        %li
-          %button.indicator.active(id="type-1" data-type="1")
-            Arms Embargos
-        %li
-          %button.indicator(id="type-2" data-type="2")
-            Human Rights
-        %li
-          %button.indicator(id="type-3" data-type="3")
-            Internal Conflict
-        %li
-          %button.indicator(id="type-4" data-type="4")
-            Regional Security
-        %li
-          %button.indicator(id="type-5" data-type="5")
-            Security of Member States
-    #volume
   #map
   #misc
     #info
-      %p Mit der Maus über Länder fahren um mehr Informationen zu bekommen.
+      %p(data-bind="visible: countryName() == ''") Mit der Maus über Länder fahren um mehr Informationen zu bekommen.
+      .country-info(data-bind="visible: countryName().length > 0")
+        %h2(data-bind="text: countryName")
+        %p
+          Rüstingexporte Deutschlands:
+          %span(data-bind="text: germanArmsExportinMillion")
+        %ul
+          %li
+            Arms Embargos:
+            %span(data-bind="text: armsEmbaroLegend")
+          %li
+            Human Rights:
+            %span(data-bind="text: humanRightsLegend")
+        %a(data-bind="attr: { href: countryReport }") Länderreport
     #legend
       %p Legend
+  #filter
+    #type-filter
+      %ul(data-bind="foreach: layers")
+        %li(data-bind="css: { active: $parent.activeLayer() == $data},click: $parent.showLayer")
+          .indicator(data-bind="text: text ")
+    #volume
