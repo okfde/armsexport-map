@@ -79,7 +79,6 @@ class BICC
 Country = ->
   self = this
   self.conductLegendText = ['not considered','uncritical', 'possibly critical', 'critical']
-  #self.conductColors = ['rgb(255,255,178)','rgb(254,204,92)','rgb(253,141,60)','rgb(227,26,28)']
   self.conductColors = ['rgb(255,255,178)','rgb(120,168,48)','rgb(240,168,0)','rgb(177,39,27)']
   self.layers = [
     { value: "1", text: 'Arms Embargos' }
@@ -120,8 +119,3 @@ Country = ->
 $ ->
   country = new Country()
   ko.applyBindings(country)
-  #$('#filter #type-filter .indicator').click (e) ->
-  #  e.preventDefault()
-  #  $('#filter #type-filter .indicator.active').removeClass('active')
-  #  $(@).addClass('active')
-  #  map.setType({value: $(this).data('type'), text: $(this).text()})
