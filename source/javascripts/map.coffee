@@ -49,12 +49,12 @@ class BICC
     @addDataLayer()
 
   addWorldLayerData: (url) ->
-    @dsv "../data/bicc_armsexports_2013.csv", (data) =>
+    @dsv "data/bicc_armsexports_2013.csv", (data) =>
       @data = data
       @addDataLayer()
 
   addDataLayer: ->
-    @dataLayer = omnivore.topojson('../world-topo.json', null, @worldLayer)
+    @dataLayer = omnivore.topojson('world-topo.json', null, @worldLayer)
     @dataLayer.addTo(@map)
 
   showDetailData: (event) =>
@@ -62,7 +62,7 @@ class BICC
     data = @countryData(feature)
     detail_html = "<h2>#{feature.properties.name}</h2><p>#{data.sum_german_armsexports}"
     $('#info').html(detail_html)
-    @dsv "../data/ruex_2000_2013.csv", (data) ->
+    @dsv "data/ruex_2000_2013.csv", (data) ->
       exports = _.where(data, { country_e: feature.properties.name } )
       # import d3 barchart add barchart
 
