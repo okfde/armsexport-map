@@ -95,6 +95,8 @@ Country = ->
   self.germanArmsExport = ko.observable('0')
   self.countryReport = ko.observable('')
   self.countryData = ko.observable()
+  self.armsExports = ko.observable(false)
+  self.weaponsExports = ko.observable(false)
   self.locked = false
   signalFalse = {
     redActive: false
@@ -112,46 +114,49 @@ Country = ->
   self.militaryBalance = ko.observable(signalFalse)
 
   self.countryData.subscribe( (newValue) ->
-    self.armsEmbargo({
-      redActive: self.redActive("1")
-      yellowActive: self.yellowActive("1")
-      greenActive: self.greenActive("1")
-    })
-    self.humanRights({
-      redActive: self.redActive("2")
-      yellowActive: self.yellowActive("2")
-      greenActive: self.greenActive("2")
-    })
-    self.internalConflict({
-      redActive: self.redActive("3")
-      yellowActive: self.yellowActive("3")
-      greenActive: self.greenActive("3")
-    })
-    self.regionalSecurity({
-      redActive: self.redActive("4")
-      yellowActive: self.yellowActive("4")
-      greenActive: self.greenActive("4")
-    })
-    self.securityMemberStates({
-      redActive: self.redActive("5")
-      yellowActive: self.yellowActive("5")
-      greenActive: self.greenActive("5")
-    })
-    self.membershipUN({
-      redActive: self.redActive("6")
-      yellowActive: self.yellowActive("6")
-      greenActive: self.greenActive("6")
-    })
-    self.armsExportControl({
-      redActive: self.redActive("7")
-      yellowActive: self.yellowActive("7")
-      greenActive: self.greenActive("7")
-    })
-    self.militaryBalance({
-      redActive: self.redActive("8")
-      yellowActive: self.yellowActive("8")
-      greenActive: self.greenActive("8")
-    })
+    if newValue
+      self.armsExports(if parseInt(self.countryData()["armsexport_yesno"]) == 1 then true else false)
+      self.weaponsExports(if parseInt(self.countryData()["kweaponsexport_yesno"]) == 1 then true else false)
+      self.armsEmbargo({
+        redActive: self.redActive("1")
+        yellowActive: self.yellowActive("1")
+        greenActive: self.greenActive("1")
+      })
+      self.humanRights({
+        redActive: self.redActive("2")
+        yellowActive: self.yellowActive("2")
+        greenActive: self.greenActive("2")
+      })
+      self.internalConflict({
+        redActive: self.redActive("3")
+        yellowActive: self.yellowActive("3")
+        greenActive: self.greenActive("3")
+      })
+      self.regionalSecurity({
+        redActive: self.redActive("4")
+        yellowActive: self.yellowActive("4")
+        greenActive: self.greenActive("4")
+      })
+      self.securityMemberStates({
+        redActive: self.redActive("5")
+        yellowActive: self.yellowActive("5")
+        greenActive: self.greenActive("5")
+      })
+      self.membershipUN({
+        redActive: self.redActive("6")
+        yellowActive: self.yellowActive("6")
+        greenActive: self.greenActive("6")
+      })
+      self.armsExportControl({
+        redActive: self.redActive("7")
+        yellowActive: self.yellowActive("7")
+        greenActive: self.greenActive("7")
+      })
+      self.militaryBalance({
+        redActive: self.redActive("8")
+        yellowActive: self.yellowActive("8")
+        greenActive: self.greenActive("8")
+      })
   )
 
   self.germanArmsExportinMillion = ko.computed( ->

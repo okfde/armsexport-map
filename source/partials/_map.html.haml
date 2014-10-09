@@ -6,9 +6,20 @@
       %p(data-bind="visible: countryName() == ''") Mit der Maus über Länder fahren um mehr Informationen zu bekommen.
       .country-info(data-bind="visible: countryName().length > 0")
         %h2(data-bind="text: countryName")
-        %p
-          Rüstingexporte Deutschlands:
-          %span(data-bind="text: germanArmsExportinMillion")
+        %ul.exports
+          %li(data-bind="css: { checkmark: armsExports }")
+            .title
+              Waffenexporte
+          %li(data-bind="css: { checkmark: weaponsExports }")
+            .title
+              Kriegsgüterexporte
+          %li.sum
+            .title
+              Rüstungexporte Deutschlands
+              %br
+              %span
+                (1999-2013)
+            .amount(data-bind="text: germanArmsExportinMillion")
         %ul.categories
           %li.category
             .category-title

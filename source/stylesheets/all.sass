@@ -33,7 +33,7 @@ $red: #A72B19
       .categories
         padding: 0 10px
         li.category
-          overflow: auto
+          @include clearfix
           margin: 8px 0
           text-align: left
           font-size: 0.9em
@@ -42,6 +42,28 @@ $red: #A72B19
             float: left
           .signal
             margin: 2px 0
+      .exports
+        @include clearfix
+        li
+          padding: 0 20px 0 10px
+          width: 80%
+          text-align: left
+          font-size: 0.9em
+          margin: 5px 0
+          &.checkmark
+            background: url(../images/checkmark.png) center right no-repeat
+          &.sum
+            width: 100%
+            @include clearfix
+            .title
+              width: 80%
+              float: left
+              span
+                font-size: 0.8em
+            .amount
+              float: left
+              width: 18%
+              @include clearfix
 
     #legend
       position: absolute
@@ -81,7 +103,7 @@ $red: #A72B19
 ul.signal
   list-style: none
   border: 1px solid #ccc
-  overflow: auto
+  @include clearfix
   width: 47px
   float: left
   li.light
