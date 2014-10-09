@@ -19,6 +19,12 @@ class BICC
         layer.bindPopup(popupText)
         layer.on({
           mouseover: @showDetailData
+          popupclose: (event) =>
+            @country.locked = false
+          click: (event) =>
+            @country.locked = false
+            @showDetailData(event)
+            @country.locked = true
         })
     })
     @addWorldLayerData()
@@ -92,6 +98,7 @@ Country = ->
   self.countryReport = ko.observable('')
   self.armsEmbargos = ko.observable('')
   self.humanRights = ko.observable('')
+  self.locked = false
   self.germanArmsExportinMillion = ko.computed( ->
     if this.germanArmsExport
       "#{(parseInt(this.germanArmsExport()) / 1000000).toFixed(2)} Mio €"
