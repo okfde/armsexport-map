@@ -15,6 +15,7 @@ $map-height: 600px
 #map-container
   @include outer-container()
   position: relative
+  margin-bottom: 20px
   #map
     @include span-columns(9)
     @include omega()
@@ -22,7 +23,7 @@ $map-height: 600px
   #misc
     @include span-columns(3)
     background: #fff
-    height: $map-height
+    height: $map-height+80
     position: relative
     #info
       padding: 10px
@@ -37,17 +38,27 @@ $map-height: 600px
   #filter
     position: absolute
     z-index: 2
-    bottom: 50px
+    bottom: 0
     background: rgba(255,255,255,0.7)
     border: 1px solid #cecece
     border-left: none
-    padding: 20px
+    padding: 0
+    height: 80px
+    @include span-columns(9)
     #type-filter
       li
-        padding: 0.3em
-        clear: left
-        button
-          float: left
+        padding: 0 10px
+        float: left
+        width: 100px
+        height: 80px
+        display: table
+        border-left: 1px solid #e5e5e5
+        &.active
+          background: #E5E5E5
+        .indicator
           font-size: 0.8em
-          &.active
-            background: red
+          line-height: 1.1em
+          font-weight: bold
+          height: 80px
+          display: table-cell
+          vertical-align: middle

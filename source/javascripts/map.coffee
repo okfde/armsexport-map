@@ -1,5 +1,5 @@
 class BICC
-  constructor: (@element, typeObj) ->
+  constructor: (@element, @country, typeObj) ->
     @type = typeObj.value
     @typeText = typeObj.text
     @mapLayer = new L.TileLayer("http://{s}.tiles.mapbox.com/v3/codeformuenster.ino9j865/{z}/{x}/{y}.png")
@@ -9,8 +9,8 @@ class BICC
         ]
         zoom: 2
     ).addLayer(@mapLayer)
-    @colors = ['rgb(255,255,178)','rgb(254,204,92)','rgb(253,141,60)','rgb(227,26,28)']
-    @conduct_legend = ['not considered','uncritical', 'possibly critical', 'critical']
+    @conduct_legend = @country.conductLegendText
+    @colors = @country.conductColors
     @dsv = d3.dsv(";", "text/plain")
     @worldLayer = L.geoJson(null, {
       style: @featureStyle
@@ -19,6 +19,12 @@ class BICC
         layer.bindPopup(popupText)
         layer.on({
           mouseover: @showDetailData
+          popupclose: (event) =>
+            @country.locked = false
+          click: (event) =>
+            @country.locked = false
+            @showDetailData(event)
+            @country.locked = true
         })
     })
     @addWorldLayerData()
@@ -58,19 +64,58 @@ class BICC
     @dataLayer.addTo(@map)
 
   showDetailData: (event) =>
-    feature = event.target.feature
-    data = @countryData(feature)
-    detail_html = "<h2>#{feature.properties.name}</h2><p>#{data.sum_german_armsexports}"
-    $('#info').html(detail_html)
-    @dsv "data/ruex_2000_2013.csv", (data) ->
-      exports = _.where(data, { country_e: feature.properties.name } )
-      # import d3 barchart add barchart
+    unless @country.locked
+      feature = event.target.feature
+      data = @countryData(feature)
+      @country.countryName(feature.properties.name)
+      @country.germanArmsExport(data.sum_german_armsexports)
+      @country.countryReport(data["link country report/laenderportrait"])
+      @country.armsEmbargos(data["1"])
+      @country.humanRights(data["2"])
+      @dsv "data/ruex_2000_2013.csv", (data) ->
+        exports = _.where(data, { country_e: feature.properties.name } )
+        # import d3 barchart add barchart
 
+Country = ->
+  self = this
+  self.conductLegendText = ['not considered','uncritical', 'possibly critical', 'critical']
+  self.conductColors = ['rgb(255,255,178)','rgb(120,168,48)','rgb(240,168,0)','rgb(177,39,27)']
+  self.layers = [
+    { value: "1", text: 'Arms Embargos' }
+    { value: "2", text: 'Human Rights' }
+    { value: "3", text: 'Internal Conflict' }
+    { value: "4", text: 'Regional Security' }
+    { value: "5", text: 'Security of Member States' }
+    { value: "6", text: 'membership in un conventions' }
+    { value: "7", text: 'arms export control' }
+    { value: "8", text: 'military/ non-military balance' }
+  ]
+  self.activeLayer = ko.observable(self.layers[0])
+  self.map = new BICC("map", self, self.activeLayer())
+  self.countryName = ko.observable('')
+  self.germanArmsExport = ko.observable('0')
+  self.countryReport = ko.observable('')
+  self.armsEmbargos = ko.observable('')
+  self.humanRights = ko.observable('')
+  self.locked = false
+  self.germanArmsExportinMillion = ko.computed( ->
+    if this.germanArmsExport
+      "#{(parseInt(this.germanArmsExport()) / 1000000).toFixed(2)} Mio €"
+    else
+      ""
+  , this)
+  self.armsEmbaroLegend = ko.computed( ->
+    this.conductLegendText[parseInt(this.armsEmbargos())]
+  , this)
+  self.humanRightsLegend = ko.computed( ->
+    this.conductLegendText[parseInt(this.humanRights())]
+  , this)
+
+  self.showLayer = (layer) ->
+    self.map.setType(layer)
+    self.activeLayer(layer)
+  self
 
 $ ->
-  map = new BICC("map", {value: "1", text: "Indicator 1"})
-  $('#filter #type-filter .indicator').click (e) ->
-    e.preventDefault()
-    $('#filter #type-filter .indicator.active').removeClass('active')
-    $(@).addClass('active')
-    map.setType({value: $(this).data('type'), text: $(this).text()})
+  country = new Country()
+  ko.applyBindings(country)
