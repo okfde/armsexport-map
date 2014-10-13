@@ -6,16 +6,77 @@
       %p(data-bind="visible: countryName() == ''") Mit der Maus über Länder fahren um mehr Informationen zu bekommen.
       .country-info(data-bind="visible: countryName().length > 0")
         %h2(data-bind="text: countryName")
-        %p
-          Rüstingexporte Deutschlands:
-          %span(data-bind="text: germanArmsExportinMillion")
-        %ul
-          %li
-            Arms Embargos:
-            %span(data-bind="text: armsEmbaroLegend")
-          %li
-            Human Rights:
-            %span(data-bind="text: humanRightsLegend")
+        %ul.exports
+          %li(data-bind="css: { checkmark: armsExports }")
+            .title
+              Waffenexporte
+          %li(data-bind="css: { checkmark: weaponsExports }")
+            .title
+              Kriegsgüterexporte
+          %li.sum
+            .title
+              Rüstungexporte Deutschlands
+              %br
+              %span
+                (1999-2013)
+            .amount(data-bind="text: germanArmsExportinMillion")
+        %ul.categories
+          %li.category
+            .category-title
+              Arms Embargos
+            %ul.signal(data-bind="with: armsEmbargo")
+              %li.light.red(data-bind="css: { active: redActive }")
+              %li.light.yellow(data-bind="css: { active: yellowActive }")
+              %li.light.green(data-bind="css: { active: greenActive }")
+          %li.category
+            .category-title
+              Human Rights
+            %ul.signal(data-bind="with: humanRights")
+              %li.light.red(data-bind="css: { active: redActive }")
+              %li.light.yellow(data-bind="css: { active: yellowActive }")
+              %li.light.green(data-bind="css: { active: greenActive }")
+          %li.category
+            .category-title
+              Internal Conflict
+            %ul.signal(data-bind="with: internalConflict")
+              %li.light.red(data-bind="css: { active: redActive }")
+              %li.light.yellow(data-bind="css: { active: yellowActive }")
+              %li.light.green(data-bind="css: { active: greenActive }")
+          %li.category
+            .category-title
+              Regional Security
+            %ul.signal(data-bind="with: regionalSecurity")
+              %li.light.red(data-bind="css: { active: redActive }")
+              %li.light.yellow(data-bind="css: { active: yellowActive }")
+              %li.light.green(data-bind="css: { active: greenActive }")
+          %li.category
+            .category-title
+              Security of Member States
+            %ul.signal(data-bind="with: securityMemberStates")
+              %li.light.red(data-bind="css: { active: redActive }")
+              %li.light.yellow(data-bind="css: { active: yellowActive }")
+              %li.light.green(data-bind="css: { active: greenActive }")
+          %li.category
+            .category-title
+              membership in un conventions
+            %ul.signal(data-bind="with: membershipUN")
+              %li.light.red(data-bind="css: { active: redActive }")
+              %li.light.yellow(data-bind="css: { active: yellowActive }")
+              %li.light.green(data-bind="css: { active: greenActive }")
+          %li.category
+            .category-title
+              arms export control
+            %ul.signal(data-bind="with: armsExportControl")
+              %li.light.red(data-bind="css: { active: redActive }")
+              %li.light.yellow(data-bind="css: { active: yellowActive }")
+              %li.light.green(data-bind="css: { active: greenActive }")
+          %li.category
+            .category-title
+              military/ non-military balance
+            %ul.signal(data-bind="with: militaryBalance")
+              %li.light.red(data-bind="css: { active: redActive }")
+              %li.light.yellow(data-bind="css: { active: yellowActive }")
+              %li.light.green(data-bind="css: { active: greenActive }")
         %a(data-bind="attr: { href: countryReport }") Länderreport
     #legend
       %p Legend

@@ -67,11 +67,10 @@ class BICC
     unless @country.locked
       feature = event.target.feature
       data = @countryData(feature)
+      @country.countryData(data)
       @country.countryName(feature.properties.name)
       @country.germanArmsExport(data.sum_german_armsexports)
       @country.countryReport(data["link country report/laenderportrait"])
-      @country.armsEmbargos(data["1"])
-      @country.humanRights(data["2"])
       @dsv "data/ruex_2000_2013.csv", (data) ->
         exports = _.where(data, { country_e: feature.properties.name } )
         # import d3 barchart add barchart
@@ -95,21 +94,89 @@ Country = ->
   self.countryName = ko.observable('')
   self.germanArmsExport = ko.observable('0')
   self.countryReport = ko.observable('')
-  self.armsEmbargos = ko.observable('')
-  self.humanRights = ko.observable('')
+  self.countryData = ko.observable()
+  self.armsExports = ko.observable(false)
+  self.weaponsExports = ko.observable(false)
   self.locked = false
+  signalFalse = {
+    redActive: false
+    yellowActive: false
+    greenActive: false
+  }
+
+  self.armsEmbargo = ko.observable(signalFalse)
+  self.humanRights= ko.observable(signalFalse)
+  self.internalConflict = ko.observable(signalFalse)
+  self.regionalSecurity = ko.observable(signalFalse)
+  self.securityMemberStates = ko.observable(signalFalse)
+  self.membershipUN = ko.observable(signalFalse)
+  self.armsExportControl = ko.observable(signalFalse)
+  self.militaryBalance = ko.observable(signalFalse)
+
+  self.countryData.subscribe( (newValue) ->
+    if newValue
+      self.armsExports(if parseInt(self.countryData()["armsexport_yesno"]) == 1 then true else false)
+      self.weaponsExports(if parseInt(self.countryData()["kweaponsexport_yesno"]) == 1 then true else false)
+      self.armsEmbargo({
+        redActive: self.redActive("1")
+        yellowActive: self.yellowActive("1")
+        greenActive: self.greenActive("1")
+      })
+      self.humanRights({
+        redActive: self.redActive("2")
+        yellowActive: self.yellowActive("2")
+        greenActive: self.greenActive("2")
+      })
+      self.internalConflict({
+        redActive: self.redActive("3")
+        yellowActive: self.yellowActive("3")
+        greenActive: self.greenActive("3")
+      })
+      self.regionalSecurity({
+        redActive: self.redActive("4")
+        yellowActive: self.yellowActive("4")
+        greenActive: self.greenActive("4")
+      })
+      self.securityMemberStates({
+        redActive: self.redActive("5")
+        yellowActive: self.yellowActive("5")
+        greenActive: self.greenActive("5")
+      })
+      self.membershipUN({
+        redActive: self.redActive("6")
+        yellowActive: self.yellowActive("6")
+        greenActive: self.greenActive("6")
+      })
+      self.armsExportControl({
+        redActive: self.redActive("7")
+        yellowActive: self.yellowActive("7")
+        greenActive: self.greenActive("7")
+      })
+      self.militaryBalance({
+        redActive: self.redActive("8")
+        yellowActive: self.yellowActive("8")
+        greenActive: self.greenActive("8")
+      })
+  )
+
   self.germanArmsExportinMillion = ko.computed( ->
     if this.germanArmsExport
       "#{(parseInt(this.germanArmsExport()) / 1000000).toFixed(2)} Mio €"
     else
       ""
   , this)
-  self.armsEmbaroLegend = ko.computed( ->
-    this.conductLegendText[parseInt(this.armsEmbargos())]
-  , this)
   self.humanRightsLegend = ko.computed( ->
     this.conductLegendText[parseInt(this.humanRights())]
   , this)
+
+  self.redActive = (key) ->
+    if parseInt(self.countryData()[key]) == 3 then true else false
+
+  self.yellowActive = (key) ->
+    if parseInt(self.countryData()[key]) == 2 then true else false
+
+  self.greenActive = (key) ->
+    if parseInt(self.countryData()[key]) == 1 then true else false
 
   self.showLayer = (layer) ->
     self.map.setType(layer)

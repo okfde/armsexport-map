@@ -12,6 +12,9 @@ body
   font-family: sans-serif
 
 $map-height: 600px
+$green: #78A830
+$yellow: #F0A800
+$red: #A72B19
 #map-container
   @include outer-container()
   position: relative
@@ -27,6 +30,41 @@ $map-height: 600px
     position: relative
     #info
       padding: 10px
+      .categories
+        padding: 0 10px
+        li.category
+          @include clearfix
+          margin: 8px 0
+          text-align: left
+          font-size: 0.9em
+          .category-title
+            width: 70%
+            float: left
+          .signal
+            margin: 2px 0
+      .exports
+        @include clearfix
+        li
+          padding: 0 20px 0 10px
+          width: 80%
+          text-align: left
+          font-size: 0.9em
+          margin: 5px 0
+          &.checkmark
+            background: url(../images/checkmark.png) center right no-repeat
+          &.sum
+            width: 100%
+            @include clearfix
+            .title
+              width: 80%
+              float: left
+              span
+                font-size: 0.8em
+            .amount
+              float: left
+              width: 18%
+              @include clearfix
+
     #legend
       position: absolute
       border-top: 1px solid #333
@@ -62,3 +100,22 @@ $map-height: 600px
           height: 80px
           display: table-cell
           vertical-align: middle
+ul.signal
+  list-style: none
+  border: 1px solid #ccc
+  @include clearfix
+  width: 47px
+  float: left
+  li.light
+    float: left
+    border-right: 1px solid #ccc
+    width: 15px
+    height: 15px
+    &.green
+      border-right: none
+      &.active
+        background: $green
+    &.yellow.active
+      background: $yellow
+    &.red.active
+      background: $red
