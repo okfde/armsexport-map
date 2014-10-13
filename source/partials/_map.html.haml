@@ -18,7 +18,7 @@
             %span(data-bind="text: humanRightsLegend")
         %a(data-bind="attr: { href: countryReport }") Länderreport
     #legend
-      %p Legend
+      = partial 'partials/legend'
   #filter
     #type-filter
       %ul(data-bind="foreach: layers")
