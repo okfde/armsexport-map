@@ -72,6 +72,7 @@ configure :build do
 end
 activate :deploy do |deploy|
   deploy.build_before = true # default: false
+  deploy.remote = 'git@github.com:okfde/armsexport-map.git'
   deploy.method = :git
 end
 activate :relative_assets
