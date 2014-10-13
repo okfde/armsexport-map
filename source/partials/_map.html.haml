@@ -79,7 +79,7 @@
               %li.light.green(data-bind="css: { active: greenActive }")
         %a(data-bind="attr: { href: countryReport }") Länderreport
     #legend
-      %p Legend
+      = partial 'partials/legend'
   #filter
     #type-filter
       %ul(data-bind="foreach: layers")
