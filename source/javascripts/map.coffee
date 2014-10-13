@@ -12,6 +12,7 @@ class BICC
     @conduct_legend = @country.conductLegendText
     @colors = @country.conductColors
     @dsv = d3.dsv(";", "text/plain")
+    @addCountryHelpData()
     @worldLayer = L.geoJson(null, {
       style: @featureStyle
       onEachFeature: (feature, layer) =>
@@ -39,8 +40,30 @@ class BICC
     data = @countryData(feature)
     if data then data[@type] else ""
 
+  full_country_name: (name) ->
+    name.split(",").reverse().join(" ").trim()
+
+  first_country_name_part: (name) ->
+    name.split(",").shift()
+
+  country_iso_from_name: (name) ->
+    iso_2_code = @country_iso_2_code(@full_country_name(name))
+    unless iso_2_code
+      iso_2_code = @country_iso_2_code(@first_country_name_part(name))
+    country = _.findWhere(@countryNames, { iso_2_code: iso_2_code } )
+    if country then country.iso_3_code else ""
+
+  country_iso_2_code: (name) ->
+    country = _.findWhere(@nomenklatura, { name: name })
+    if country
+      unless country.acronym
+        country = _.findWhere(@nomenklatura, { name: country.canonical } )
+      if country then country.acronym else ""
+    else
+      ""
+
   countryData: (feature) ->
-    _.findWhere(@data, { country_e: feature.properties.name } )
+    _.findWhere(@data, { iso3_code: @country_iso_from_name(feature.properties.name) } )
 
   countryColorForFeature: (feature)->
     value = @typeValue(feature)
@@ -62,6 +85,12 @@ class BICC
   addDataLayer: ->
     @dataLayer = omnivore.topojson('world-topo.json', null, @worldLayer)
     @dataLayer.addTo(@map)
+
+  addCountryHelpData: ->
+    d3.csv "data/iso_3166_2_countries.csv", (data) =>
+      @countryNames = data
+    d3.csv "data/nomenklatura.csv", (data) =>
+      @nomenklatura = data
 
   showDetailData: (event) =>
     unless @country.locked
