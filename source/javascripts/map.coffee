@@ -79,7 +79,6 @@ class BICC
   addWorldLayerData: (url) ->
     @dsv "data/bicc_armsexports_2013.csv", (data) =>
       @data = data
-      @addDataLayer()
 
   addDataLayer: ->
     @dataLayer = omnivore.topojson('world-topo.json', null, @worldLayer)
@@ -89,6 +88,7 @@ class BICC
     unless @country.locked
       feature = event.target.feature
       data = @countryData(feature)
+      @country.gmiRank(@gmi.getRank(data.iso3_code))
       @country.countryData(data)
       @country.countryName(feature.properties.name)
       @country.germanArmsExport(data.sum_german_armsexports)
@@ -106,14 +106,53 @@ class BICC
         @nomenklatura = nomenklatura
         @countryNames = countries
         @data = codeOfConduct
+        @gmi = new GMI(gmi)
         @addDataLayer()
       )
 
+class @GMI
+  constructor: (@data) ->
+    @year = '2012'
+    @setDomainForYear()
+    @scale = d3.scale.ordinal().domain(@domain).range(@getRange())
+    @quantileScale = d3.scale.quantile().domain([1,120]).range([0,1,2,3,4])
+
+  setDomainForYear: ->
+    @domain = _.sortBy(@gmiData().map( (d) => @gmiValue(d) ), (d) => @getValueFromGmi(d))
+
+  gmiValue: (d) =>
+    d["gmi#{@year}"]
+
+  getRange: ->
+    [@gmiData().length..1]
+
+  gmiData: ->
+    _.reject(@data, (d) => @gmiValue(d) is "")
+  setScale: ->
+    @setDomainForYear()
+    @scale.domain(@domain).range(@getRange())
+
+  getRank: (country_code, year = '2012') ->
+    unless year is @year
+      @year = year
+      @setScale()
+    country = _.findWhere(@data, { iso3_code: country_code } )
+    @scale(@gmiValue(country))
+
+  getQuantile: (country_code, year = '2012') ->
+    unless year is @year
+      @year = year
+    @quantileScale(@getRank(country_code))
+
+
+  getValueFromGmi: (value) ->
+    parseFloat(value.replace(',','.'))
 
 Country = ->
   self = this
   self.conductLegendText = ['not considered','uncritical', 'possibly critical', 'critical']
   self.conductColors = ['rgb(255,255,178)','rgb(120,168,48)','rgb(240,168,0)','rgb(177,39,27)']
+  self.gmiRanks = ['no data','1-30','31-60','61-90','91-120','>120']
   self.layers = [
     { value: "1", text: 'Arms Embargos' }
     { value: "2", text: 'Human Rights' }
@@ -132,6 +171,7 @@ Country = ->
   self.countryData = ko.observable()
   self.armsExports = ko.observable(false)
   self.weaponsExports = ko.observable(false)
+  self.gmiRank = ko.observable(0)
   self.locked = false
   signalFalse = {
     redActive: false
@@ -202,6 +242,10 @@ Country = ->
   , self)
   self.humanRightsLegend = ko.computed( ->
     this.conductLegendText[parseInt(this.humanRights())]
+  , self)
+
+  self.gmiRankText = ko.computed( ->
+    this.gmiRanks[self.gmiRank()]
   , self)
 
   self.redActive = (key) ->
