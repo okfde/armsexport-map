@@ -12,7 +12,6 @@ class BICC
     @conduct_legend = @country.conductLegendText
     @colors = @country.conductColors
     @dsv = d3.dsv(";", "text/plain")
-    @addCountryHelpData()
     @worldLayer = L.geoJson(null, {
       style: @featureStyle
       onEachFeature: (feature, layer) =>
@@ -28,7 +27,7 @@ class BICC
             @country.locked = true
         })
     })
-    @addWorldLayerData()
+    @getData()
 
   featureStyle: (feature) =>
     {
@@ -86,12 +85,6 @@ class BICC
     @dataLayer = omnivore.topojson('world-topo.json', null, @worldLayer)
     @dataLayer.addTo(@map)
 
-  addCountryHelpData: ->
-    d3.csv "data/iso_3166_2_countries.csv", (data) =>
-      @countryNames = data
-    d3.csv "data/nomenklatura.csv", (data) =>
-      @nomenklatura = data
-
   showDetailData: (event) =>
     unless @country.locked
       feature = event.target.feature
@@ -103,6 +96,19 @@ class BICC
       @dsv "data/ruex_2000_2013.csv", (data) ->
         exports = _.where(data, { country_e: feature.properties.name } )
         # import d3 barchart add barchart
+  getData: ->
+    queue()
+      .defer(d3.csv, "data/iso_3166_2_countries.csv")
+      .defer(d3.csv, "data/nomenklatura.csv")
+      .defer(@dsv, "data/gmi_1990_2013_values.csv")
+      .defer(@dsv, "data/bicc_armsexports_2013.csv")
+      .await( (error, countries, nomenklatura, gmi, codeOfConduct) =>
+        @nomenklatura = nomenklatura
+        @countryNames = countries
+        @data = codeOfConduct
+        @addDataLayer()
+      )
+
 
 Country = ->
   self = this
