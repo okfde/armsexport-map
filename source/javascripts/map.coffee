@@ -199,10 +199,10 @@ Country = ->
       "#{(parseInt(this.germanArmsExport()) / 1000000).toFixed(2)} Mio €"
     else
       ""
-  , this)
+  , self)
   self.humanRightsLegend = ko.computed( ->
     this.conductLegendText[parseInt(this.humanRights())]
-  , this)
+  , self)
 
   self.redActive = (key) ->
     if parseInt(self.countryData()[key]) == 3 then true else false
