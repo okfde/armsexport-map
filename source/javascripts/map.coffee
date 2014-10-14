@@ -11,6 +11,8 @@ class BICC
     ).addLayer(@mapLayer)
     @conduct_legend = @country.conductLegendText
     @colors = @country.conductColors
+    #@gmi_colors = ["#f00","#e54","#dab","#c4c","#53c"]
+    @gmi_colors = ['rgb(255,255,178)','rgb(254,204,92)','rgb(253,141,60)','rgb(240,59,32)','rgb(189,0,38)'].reverse()
     @dsv = d3.dsv(";", "text/plain")
     @worldLayer = L.geoJson(null, {
       style: @featureStyle
@@ -65,8 +67,12 @@ class BICC
     _.findWhere(@data, { iso3_code: @country_iso_from_name(feature.properties.name) } )
 
   countryColorForFeature: (feature)->
-    value = @typeValue(feature)
-    if value then @colors[parseInt(value)] else 'rgb(255,255,255)'
+    unless @type == "gmi"
+      value = @typeValue(feature)
+      if value then @colors[parseInt(value)] else 'rgb(255,255,255)'
+    else
+      iso_3_code = @country_iso_from_name(feature.properties.name)
+      @gmi_colors[@gmi.getQuantile(iso_3_code)] || '#ccc'
 
   setType: (type = {}) ->
     @type = type.value
@@ -115,7 +121,7 @@ class @GMI
     @year = '2012'
     @setDomainForYear()
     @scale = d3.scale.ordinal().domain(@domain).range(@getRange())
-    @quantileScale = d3.scale.quantile().domain([1,120]).range([0,1,2,3,4])
+    @quantileScale = d3.scale.quantile().domain([1,150]).range([0,1,2,3,4])
 
   setDomainForYear: ->
     @domain = _.sortBy(@gmiData().map( (d) => @gmiValue(d) ), (d) => @getValueFromGmi(d))
@@ -137,7 +143,8 @@ class @GMI
       @year = year
       @setScale()
     country = _.findWhere(@data, { iso3_code: country_code } )
-    @scale(@gmiValue(country))
+    if country
+      @scale(@gmiValue(country))
 
   getQuantile: (country_code, year = '2012') ->
     unless year is @year
@@ -154,6 +161,7 @@ Country = ->
   self.conductColors = ['rgb(255,255,178)','rgb(120,168,48)','rgb(240,168,0)','rgb(177,39,27)']
   self.gmiRanks = ['no data','1-30','31-60','61-90','91-120','>120']
   self.layers = [
+    { value: "gmi", text: 'GMI' }
     { value: "1", text: 'Arms Embargos' }
     { value: "2", text: 'Human Rights' }
     { value: "3", text: 'Internal Conflict' }
