@@ -61,7 +61,12 @@ class BICC
       if country then country.acronym else ""
     else
       ""
+  searchCountries: (searchTerm) ->
+    layers = _.filter(@dataLayer.getLayers(), (d) -> d.feature.properties.name.match(new RegExp("#{searchTerm}","gi")))
+    layers.map((d) -> {name: d.feature.properties.name, layer: d})
 
+  zoomTo: (layer) ->
+    @map.fitBounds(layer.getBounds())
   countryData: (feature) ->
     _.findWhere(@data, { iso3_code: @country_iso_from_name(feature.properties.name) } )
 
@@ -92,16 +97,17 @@ class BICC
     d3.csv "data/nomenklatura.csv", (data) =>
       @nomenklatura = data
 
+  setDetailsForFeature: (feature) ->
+    data = @countryData(feature)
+    @country.countryData(data)
+    @country.countryName(feature.properties.name)
+    @country.germanArmsExport(data.sum_german_armsexports)
+    @country.countryReport(data["link country report/laenderportrait"])
   showDetailData: (event) =>
     unless @country.locked
-      feature = event.target.feature
-      data = @countryData(feature)
-      @country.countryData(data)
-      @country.countryName(feature.properties.name)
-      @country.germanArmsExport(data.sum_german_armsexports)
-      @country.countryReport(data["link country report/laenderportrait"])
+      @setDetailsForFeature(event.target.feature)
       @dsv "data/ruex_2000_2013.csv", (data) ->
-        exports = _.where(data, { country_e: feature.properties.name } )
+        #exports = _.where(data, { country_e: feature.properties.name } )
         # import d3 barchart add barchart
 
 Country = ->
@@ -126,6 +132,17 @@ Country = ->
   self.countryData = ko.observable()
   self.armsExports = ko.observable(false)
   self.weaponsExports = ko.observable(false)
+
+  self.searchCountry = ko.observable('')
+
+  self.searchedCountries = ko.dependentObservable( ->
+    search = self.searchCountry().toLowerCase()
+    if search
+      self.map.searchCountries(search)
+    else
+      []
+
+  )
   self.locked = false
   signalFalse = {
     redActive: false
@@ -210,6 +227,12 @@ Country = ->
   self.showLayer = (layer) ->
     self.map.setType(layer)
     self.activeLayer(layer)
+
+  self.zoomToCountry = (feature) ->
+    self.searchCountry('')
+    self.map.zoomTo(feature.layer)
+    self.map.setDetailsForFeature(feature.layer.feature)
+
   self
 
 $ ->
