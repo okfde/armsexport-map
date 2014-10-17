@@ -48,41 +48,40 @@ $red: #A72B19
     height: $map-height+80
     position: relative
     #info
+      h2
+        text-align: left
+        font-size: 1.4em
       padding: 10px
+      font-size: 0.75em
       .categories
-        padding: 0 10px
         li.category
           @include clearfix
           margin: 8px 0
           text-align: left
-          font-size: 0.9em
           .category-title
             width: 70%
             float: left
           .signal
+            float: right
             margin: 2px 0
       .exports
         @include clearfix
         li
-          padding: 0 20px 0 10px
-          width: 80%
           text-align: left
-          font-size: 0.9em
           margin: 5px 0
-          &.checkmark
-            background: url(../images/checkmark.png) center right no-repeat
-          &.sum
-            width: 100%
-            @include clearfix
-            .title
-              width: 80%
-              float: left
-              span
-                font-size: 0.8em
-            .amount
-              float: left
-              width: 18%
-              @include clearfix
+          border-bottom: 1px dashed #eee
+          .title
+            font-style: italic
+            color: #767676
+          .value
+            text-align: center
+            font-size: 1.4em
+            margin: 6px 0
+            font-weight: bold
+            span
+              padding: 4px
+              color: #eee
+              text-transform: uppercase
 
     #legend
       position: absolute
