@@ -11,7 +11,6 @@ class BICC
     ).addLayer(@mapLayer)
     @conduct_legend = @country.conductLegendText
     @colors = @country.conductColors
-    #@gmi_colors = ["#f00","#e54","#dab","#c4c","#53c"]
     @gmi_colors = ['rgb(255,255,178)','rgb(254,204,92)','rgb(253,141,60)','rgb(240,59,32)','rgb(189,0,38)'].reverse()
     @dsv = d3.dsv(";", "text/plain")
     @worldLayer = L.geoJson(null, {
