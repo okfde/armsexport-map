@@ -102,22 +102,27 @@ class BICC
     @country.germanArmsExport(data.sum_german_armsexports)
     @country.germanWeaponsExport(data.sum_german_kweaponsexport)
     @country.countryReport(data["link country report/laenderportrait"])
+    exports = _.findWhere(@exportData, {
+      iso3_code: data.iso3_code
+      year: '2013-01-01'
+    } )
+    @country.exports2013(exports.gesamt)
+
   showDetailData: (event) =>
     unless @country.locked
       @setDetailsForFeature(event.target.feature)
-      @dsv "data/ruex_2000_2013.csv", (data) ->
-        #exports = _.where(data, { country_e: feature.properties.name } )
-        # import d3 barchart add barchart
   getData: ->
     queue()
       .defer(d3.csv, "data/iso_3166_2_countries.csv")
       .defer(d3.csv, "data/nomenklatura.csv")
       .defer(@dsv, "data/gmi_1990_2013_values.csv")
       .defer(@dsv, "data/bicc_armsexports_2013.csv")
-      .await( (error, countries, nomenklatura, gmi, codeOfConduct) =>
+      .defer(@dsv, "data/ruex_2000_2013.csv")
+      .await( (error, countries, nomenklatura, gmi, codeOfConduct, exportData) =>
         @nomenklatura = nomenklatura
         @countryNames = countries
         @data = codeOfConduct
+        @exportData = exportData
         @gmi = new GMI(gmi)
         @addDataLayer()
       )
@@ -188,6 +193,7 @@ Country = ->
   self.weaponsExports = ko.observable(false)
   self.gmiRank = ko.observable(0)
   self.searchCountry = ko.observable('')
+  self.exports2013 = ko.observable(0)
 
   self.searchedCountries = ko.dependentObservable( ->
     search = self.searchCountry().toLowerCase()
