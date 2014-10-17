@@ -98,7 +98,7 @@ class BICC
     data = @countryData(feature)
     @country.countryData(data)
     @country.gmiRank(@gmi.getRank(data.iso3_code))
-    @country.countryName(feature.properties.name)
+    @country.countryName(data.country_e)
     @country.germanArmsExport(data.sum_german_armsexports)
     @country.countryReport(data["link country report/laenderportrait"])
   showDetailData: (event) =>
