@@ -276,6 +276,12 @@ Country = ->
   self.greenActive = (key) ->
     if parseInt(self.countryData()[key]) == 1 then true else false
 
+  self.yesNoCss = (booleanValue) ->
+    if booleanValue then "green" else "red"
+
+  self.yesNoText = (booleanValue) ->
+    if booleanValue then "yes" else "no"
+
   self.showLayer = (layer) ->
     self.map.setType(layer)
     self.activeLayer(layer)
