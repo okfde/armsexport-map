@@ -11,8 +11,8 @@ class BICC
     ).addLayer(@mapLayer)
     @conduct_legend = @country.conductLegendText
     @colors = @country.conductColors
+    @gmi_colors = ['rgb(255,255,178)','rgb(254,204,92)','rgb(253,141,60)','rgb(240,59,32)','rgb(189,0,38)'].reverse()
     @dsv = d3.dsv(";", "text/plain")
-    @addCountryHelpData()
     @worldLayer = L.geoJson(null, {
       style: @featureStyle
       onEachFeature: (feature, layer) =>
@@ -28,7 +28,7 @@ class BICC
             @country.locked = true
         })
     })
-    @addWorldLayerData()
+    @getData()
 
   featureStyle: (feature) =>
     {
@@ -66,8 +66,12 @@ class BICC
     _.findWhere(@data, { iso3_code: @country_iso_from_name(feature.properties.name) } )
 
   countryColorForFeature: (feature)->
-    value = @typeValue(feature)
-    if value then @colors[parseInt(value)] else 'rgb(255,255,255)'
+    unless @type == "gmi"
+      value = @typeValue(feature)
+      if value then @colors[parseInt(value)] else 'rgb(255,255,255)'
+    else
+      iso_3_code = @country_iso_from_name(feature.properties.name)
+      @gmi_colors[@gmi.getQuantile(iso_3_code)] || '#ccc'
 
   setType: (type = {}) ->
     @type = type.value
@@ -80,22 +84,16 @@ class BICC
   addWorldLayerData: (url) ->
     @dsv "data/bicc_armsexports_2013.csv", (data) =>
       @data = data
-      @addDataLayer()
 
   addDataLayer: ->
     @dataLayer = omnivore.topojson('world-topo.json', null, @worldLayer)
     @dataLayer.addTo(@map)
 
-  addCountryHelpData: ->
-    d3.csv "data/iso_3166_2_countries.csv", (data) =>
-      @countryNames = data
-    d3.csv "data/nomenklatura.csv", (data) =>
-      @nomenklatura = data
-
   showDetailData: (event) =>
     unless @country.locked
       feature = event.target.feature
       data = @countryData(feature)
+      @country.gmiRank(@gmi.getRank(data.iso3_code))
       @country.countryData(data)
       @country.countryName(feature.properties.name)
       @country.germanArmsExport(data.sum_german_armsexports)
@@ -103,12 +101,66 @@ class BICC
       @dsv "data/ruex_2000_2013.csv", (data) ->
         exports = _.where(data, { country_e: feature.properties.name } )
         # import d3 barchart add barchart
+  getData: ->
+    queue()
+      .defer(d3.csv, "data/iso_3166_2_countries.csv")
+      .defer(d3.csv, "data/nomenklatura.csv")
+      .defer(@dsv, "data/gmi_1990_2013_values.csv")
+      .defer(@dsv, "data/bicc_armsexports_2013.csv")
+      .await( (error, countries, nomenklatura, gmi, codeOfConduct) =>
+        @nomenklatura = nomenklatura
+        @countryNames = countries
+        @data = codeOfConduct
+        @gmi = new GMI(gmi)
+        @addDataLayer()
+      )
+
+class @GMI
+  constructor: (@data) ->
+    @year = '2012'
+    @setDomainForYear()
+    @scale = d3.scale.ordinal().domain(@domain).range(@getRange())
+    @quantileScale = d3.scale.quantile().domain([1,150]).range([0,1,2,3,4])
+
+  setDomainForYear: ->
+    @domain = _.sortBy(@gmiData().map( (d) => @gmiValue(d) ), (d) => @getValueFromGmi(d))
+
+  gmiValue: (d) =>
+    d["gmi#{@year}"]
+
+  getRange: ->
+    [@gmiData().length..1]
+
+  gmiData: ->
+    _.reject(@data, (d) => @gmiValue(d) is "")
+  setScale: ->
+    @setDomainForYear()
+    @scale.domain(@domain).range(@getRange())
+
+  getRank: (country_code, year = '2012') ->
+    unless year is @year
+      @year = year
+      @setScale()
+    country = _.findWhere(@data, { iso3_code: country_code } )
+    if country
+      @scale(@gmiValue(country))
+
+  getQuantile: (country_code, year = '2012') ->
+    unless year is @year
+      @year = year
+    @quantileScale(@getRank(country_code))
+
+
+  getValueFromGmi: (value) ->
+    parseFloat(value.replace(',','.'))
 
 Country = ->
   self = this
   self.conductLegendText = ['not considered','uncritical', 'possibly critical', 'critical']
   self.conductColors = ['rgb(255,255,178)','rgb(120,168,48)','rgb(240,168,0)','rgb(177,39,27)']
+  self.gmiRanks = ['no data','1-30','31-60','61-90','91-120','>120']
   self.layers = [
+    { value: "gmi", text: 'GMI' }
     { value: "1", text: 'Arms Embargos' }
     { value: "2", text: 'Human Rights' }
     { value: "3", text: 'Internal Conflict' }
@@ -126,6 +178,7 @@ Country = ->
   self.countryData = ko.observable()
   self.armsExports = ko.observable(false)
   self.weaponsExports = ko.observable(false)
+  self.gmiRank = ko.observable(0)
   self.locked = false
   signalFalse = {
     redActive: false
@@ -193,10 +246,14 @@ Country = ->
       "#{(parseInt(this.germanArmsExport()) / 1000000).toFixed(2)} Mio €"
     else
       ""
-  , this)
+  , self)
   self.humanRightsLegend = ko.computed( ->
     this.conductLegendText[parseInt(this.humanRights())]
-  , this)
+  , self)
+
+  self.gmiRankText = ko.computed( ->
+    this.gmiRanks[self.gmiRank()]
+  , self)
 
   self.redActive = (key) ->
     if parseInt(self.countryData()[key]) == 3 then true else false
