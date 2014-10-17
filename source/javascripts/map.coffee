@@ -100,6 +100,7 @@ class BICC
     @country.gmiRank(@gmi.getRank(data.iso3_code))
     @country.countryName(data.country_e)
     @country.germanArmsExport(data.sum_german_armsexports)
+    @country.germanWeaponsExport(data.sum_german_kweaponsexport)
     @country.countryReport(data["link country report/laenderportrait"])
   showDetailData: (event) =>
     unless @country.locked
@@ -180,6 +181,7 @@ Country = ->
   self.map = new BICC("map", self, self.activeLayer())
   self.countryName = ko.observable('')
   self.germanArmsExport = ko.observable('0')
+  self.germanWeaponsExport = ko.observable('0')
   self.countryReport = ko.observable('')
   self.countryData = ko.observable()
   self.armsExports = ko.observable(false)
@@ -257,12 +259,6 @@ Country = ->
       })
   )
 
-  self.germanArmsExportinMillion = ko.computed( ->
-    if this.germanArmsExport
-      "#{(parseInt(this.germanArmsExport()) / 1000000).toFixed(2)} Mio €"
-    else
-      ""
-  , self)
   self.humanRightsLegend = ko.computed( ->
     this.conductLegendText[parseInt(this.humanRights())]
   , self)
@@ -290,6 +286,10 @@ Country = ->
     self.map.setDetailsForFeature(feature.layer.feature)
 
   self
+
+@formatToMillions = (number) ->
+  if number then "#{(parseInt(number) / 1000000).toFixed(2)} Mio €" else ""
+
 
 $ ->
   country = new Country()
