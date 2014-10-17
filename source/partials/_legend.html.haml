@@ -1,14 +1,33 @@
-%h5 Code of Conduct
-%ul
-  %li
-    .circle.green
-    %b
-      uncritical
-  %li
-    .circle.yellow
-    %b
-      possibly critical
-  %li
-    .circle.red
-    %b
-      critial
+.code-of-conduct(data-bind="visible: activeLayer().value != 'gmi'")
+  %h5 Code of Conduct
+  %ul
+    %li
+      .circle.green
+      %b
+        uncritical
+    %li
+      .circle.yellow
+      %b
+        possibly critical
+    %li
+      .circle.red
+      %b
+        critial
+.gmi(data-bind="visible: activeLayer().value == 'gmi'")
+  %h5 GMI
+  %ul
+    %li
+      .circle.gmi-1
+      %b Rank 1-30
+    %li
+      .circle.gmi-2
+      %b Rank 31-60
+    %li
+      .circle.gmi-3
+      %b Rank 61-90
+    %li
+      .circle.gmi-4
+      %b Rank 91-120
+    %li
+      .circle.gmi-5
+      %b Rank > 120
