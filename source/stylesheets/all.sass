@@ -15,6 +15,9 @@ $map-height: 600px
 $green: #78A830
 $yellow: #F0A800
 $red: #A72B19
+$green-legend: rgba(120,168,48, 0.5)
+$yellow-legend: rgba(240,168,0, 0.5)
+$red-legend: rgba(167,43,25,0.5)
 #map-container
   @include outer-container()
   position: relative
@@ -23,6 +26,46 @@ $red: #A72B19
     @include span-columns(9)
     @include omega()
     height: $map-height
+    #legend
+      position: absolute
+      border-top: 1px solid #cecece
+      border-left: 1px solid #cecece
+      background: rgba(244,244,244,0.8)
+      bottom: 0
+      right: 0
+      font-size: 0.8em
+      padding: 10px 20px 20px
+      z-index: 10
+      h5
+        text-align: left
+        font-size: 1em
+      ul
+        li
+          @include clearfix()
+          b
+            float: left
+          .circle
+            float: left
+            width: 10px
+            height: 10px
+            margin: 3px 7px 0 0
+            &.red
+              background: $red-legend
+            &.yellow
+              background: $yellow-legend
+            &.green
+              background: $green-legend
+            &.gmi-5
+              background: rgba(255,255,178,0.5)
+            &.gmi-4
+              background: rgba(254,204,92,0.5)
+            &.gmi-3
+              background: rgba(253,141,60,0.5)
+            &.gmi-2
+              background: rgba(240,59,32,0.5)
+            &.gmi-1
+              background: rgba(189,0,38,0.5)
+
     .search
       position: absolute
       left: 15px
@@ -87,31 +130,6 @@ $red: #A72B19
               &.green
                 background: $green
 
-    #legend
-      position: absolute
-      border-top: 1px solid #333
-      background: #dedede
-      bottom: 0
-      left: 0
-      height: 100px
-      width: 100%
-      font-size: 0.8em
-      ul
-        li
-          @include clearfix()
-          b
-            float: left
-          .circle
-            float: left
-            width: 10px
-            height: 10px
-            margin: 7px
-            &.red
-              background: $red
-            &.yellow
-              background: $yellow
-            &.green
-              background: $green
   #filter
     position: absolute
     z-index: 2
