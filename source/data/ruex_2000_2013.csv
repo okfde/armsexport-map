@@ -1,4 +1,4 @@
-year;Gesamtvolumen Mio €;Volumen Kriegswaffenausfuhr Mio €;country_e;iso3_code
+year;gesamt;war_weapons;country_e;iso3_code
 2000-01-01;0;0;Afghanistan;AFG
 2000-01-01;137896;0;Albania;ALB
 2000-01-01;202509;0;Algeria;DZA

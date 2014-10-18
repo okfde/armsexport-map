@@ -98,25 +98,32 @@ class BICC
     data = @countryData(feature)
     @country.countryData(data)
     @country.gmiRank(@gmi.getRank(data.iso3_code))
-    @country.countryName(feature.properties.name)
+    @country.gmiCountryCount(@gmi.getCountryCount())
+    @country.countryName(data.country_e)
     @country.germanArmsExport(data.sum_german_armsexports)
+    @country.germanWeaponsExport(data.sum_german_kweaponsexport)
     @country.countryReport(data["link country report/laenderportrait"])
+    exports = _.findWhere(@exportData, {
+      iso3_code: data.iso3_code
+      year: '2013-01-01'
+    } )
+    @country.exports2013(exports.gesamt)
+
   showDetailData: (event) =>
     unless @country.locked
       @setDetailsForFeature(event.target.feature)
-      @dsv "data/ruex_2000_2013.csv", (data) ->
-        #exports = _.where(data, { country_e: feature.properties.name } )
-        # import d3 barchart add barchart
   getData: ->
     queue()
       .defer(d3.csv, "data/iso_3166_2_countries.csv")
       .defer(d3.csv, "data/nomenklatura.csv")
       .defer(@dsv, "data/gmi_1990_2013_values.csv")
       .defer(@dsv, "data/bicc_armsexports_2013.csv")
-      .await( (error, countries, nomenklatura, gmi, codeOfConduct) =>
+      .defer(@dsv, "data/ruex_2000_2013.csv")
+      .await( (error, countries, nomenklatura, gmi, codeOfConduct, exportData) =>
         @nomenklatura = nomenklatura
         @countryNames = countries
         @data = codeOfConduct
+        @exportData = exportData
         @gmi = new GMI(gmi)
         @addDataLayer()
       )
@@ -156,6 +163,8 @@ class @GMI
       @year = year
     @quantileScale(@getRank(country_code))
 
+  getCountryCount: ->
+    @gmiData().length
 
   getValueFromGmi: (value) ->
     parseFloat(value.replace(',','.'))
@@ -180,12 +189,15 @@ Country = ->
   self.map = new BICC("map", self, self.activeLayer())
   self.countryName = ko.observable('')
   self.germanArmsExport = ko.observable('0')
+  self.germanWeaponsExport = ko.observable('0')
   self.countryReport = ko.observable('')
   self.countryData = ko.observable()
   self.armsExports = ko.observable(false)
   self.weaponsExports = ko.observable(false)
   self.gmiRank = ko.observable(0)
+  self.gmiCountryCount = ko.observable(0)
   self.searchCountry = ko.observable('')
+  self.exports2013 = ko.observable(0)
 
   self.searchedCountries = ko.dependentObservable( ->
     search = self.searchCountry().toLowerCase()
@@ -257,12 +269,6 @@ Country = ->
       })
   )
 
-  self.germanArmsExportinMillion = ko.computed( ->
-    if this.germanArmsExport
-      "#{(parseInt(this.germanArmsExport()) / 1000000).toFixed(2)} Mio €"
-    else
-      ""
-  , self)
   self.humanRightsLegend = ko.computed( ->
     this.conductLegendText[parseInt(this.humanRights())]
   , self)
@@ -280,6 +286,12 @@ Country = ->
   self.greenActive = (key) ->
     if parseInt(self.countryData()[key]) == 1 then true else false
 
+  self.yesNoCss = (booleanValue) ->
+    if booleanValue then "green" else "red"
+
+  self.yesNoText = (booleanValue) ->
+    if booleanValue then "yes" else "no"
+
   self.showLayer = (layer) ->
     self.map.setType(layer)
     self.activeLayer(layer)
@@ -290,6 +302,10 @@ Country = ->
     self.map.setDetailsForFeature(feature.layer.feature)
 
   self
+
+@formatToMillions = (number) ->
+  if number then "#{(parseInt(number) / 1000000).toFixed(2)} Mio €" else ""
+
 
 $ ->
   country = new Country()
