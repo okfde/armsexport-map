@@ -24,10 +24,11 @@
       .title
         Actual exports of military weapons 1999-2013
       .value(data-bind="text: formatToMillions(germanWeaponsExport())")
-    %li.gmi
-      .title
-        GMI Rank
-      .value(data-bind="text: gmiRank")
+  .ranks
+    %ul.rank.gmi
+      %li GMI-Rank
+      %li.value(data-bind="text: gmiRank")
+      %li.count(data-bind="text: gmiCountryCount")
   %ul.categories
     %li.category
       .category-title

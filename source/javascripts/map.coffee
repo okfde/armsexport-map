@@ -98,6 +98,7 @@ class BICC
     data = @countryData(feature)
     @country.countryData(data)
     @country.gmiRank(@gmi.getRank(data.iso3_code))
+    @country.gmiCountryCount(@gmi.getCountryCount())
     @country.countryName(data.country_e)
     @country.germanArmsExport(data.sum_german_armsexports)
     @country.germanWeaponsExport(data.sum_german_kweaponsexport)
@@ -162,6 +163,8 @@ class @GMI
       @year = year
     @quantileScale(@getRank(country_code))
 
+  getCountryCount: ->
+    @gmiData().length
 
   getValueFromGmi: (value) ->
     parseFloat(value.replace(',','.'))
@@ -192,6 +195,7 @@ Country = ->
   self.armsExports = ko.observable(false)
   self.weaponsExports = ko.observable(false)
   self.gmiRank = ko.observable(0)
+  self.gmiCountryCount = ko.observable(0)
   self.searchCountry = ko.observable('')
   self.exports2013 = ko.observable(0)
 
