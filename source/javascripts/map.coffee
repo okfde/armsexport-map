@@ -175,15 +175,16 @@ Country = ->
   self.conductColors = ['rgb(255,255,178)','rgb(120,168,48)','rgb(240,168,0)','rgb(177,39,27)']
   self.gmiRanks = ['no data','1-30','31-60','61-90','91-120','>120']
   self.layers = [
-    { value: "gmi", text: 'GMI' }
-    { value: "1", text: 'Arms Embargos' }
-    { value: "2", text: 'Human Rights' }
-    { value: "3", text: 'Internal Conflict' }
-    { value: "4", text: 'Regional Security' }
-    { value: "5", text: 'Security of Member States' }
-    { value: "6", text: 'membership in un conventions' }
-    { value: "7", text: 'arms export control' }
-    { value: "8", text: 'military/ non-military balance' }
+    { value: "1", text: 'Arms Embargos', explanation: 'International obligations: International or Regional Arms Embargoes and Membership in Arms Control Agreements' }
+    { value: "2", text: 'Human Rights', explanation: 'Adherence to Human Rights' }
+    { value: "3", text: 'Internal Conflict', explanation: 'Internal Situation – Stability or Conflict' }
+    { value: "4", text: 'Regional Security', explanation: 'Preservation of regional peace, security and stability' }
+    { value: "5", text: 'Security of Member States', explanation: 'National Security of Member States and Allies' }
+    { value: "6", text: 'membership in un conventions', explanation: 'Membership in Human Rights and Arms Control Conventions' }
+    { value: "7", text: 'arms export control', explanation: 'Arms Export Controls' }
+    { value: "8", text: 'military/ non-military balance', explanation: 'Danger of disproportionate military capacities impairing development' }
+    { value: "gmi", text: 'GMI', explanation: 'The Global Militarization Index (GMI) compares, for example, a country’s military expenditure with its Gross Domestic Product (GDP) and its health expenditure.', longExplanation: 'The Global Militarization Index (GMI) compares, for example, a country’s military expenditure with its Gross Domestic Product (GDP) and its health expenditure. 
+    It contrasts the total number of military and paramilitary forces in a country with the number of physicians. Finally, it studies the number of heavy weapons available to a country’s armed forces. These and other indicators are used to determine a country’s ranking, which in turn makes it possible to measure the respective level of militarization in comparison to other countries.' }
   ]
   self.activeLayer = ko.observable(self.layers[0])
   self.map = new BICC("map", self, self.activeLayer())
@@ -198,6 +199,7 @@ Country = ->
   self.gmiCountryCount = ko.observable(0)
   self.searchCountry = ko.observable('')
   self.exports2013 = ko.observable(0)
+  self.explanation = ko.observable(self.layers[0].explanation)
 
   self.searchedCountries = ko.dependentObservable( ->
     search = self.searchCountry().toLowerCase()
@@ -295,6 +297,15 @@ Country = ->
   self.showLayer = (layer) ->
     self.map.setType(layer)
     self.activeLayer(layer)
+
+  self.showCurrentExplanation = (layer) ->
+    self.explanation(self.activeLayer().explanation)
+
+  self.showExplanation = (layer) ->
+    self.explanation(layer.explanation)
+
+  self.showDetailedExplanation = () ->
+    self.explanation("")
 
   self.zoomToCountry = (feature) ->
     self.searchCountry('')
