@@ -2,7 +2,10 @@ class BICC
   constructor: (@element, @country, typeObj) ->
     @type = typeObj.value
     @typeText = typeObj.text
-    @mapLayer = new L.TileLayer("http://{s}.tiles.mapbox.com/v3/codeformuenster.ino9j865/{z}/{x}/{y}.png")
+    @mapLayer = new L.TileLayer(
+      "http://{s}.tiles.mapbox.com/v3/codeformuenster.ino9j865/{z}/{x}/{y}.png",
+      { continuousWorld: false, noWrap: true }
+    )
     @map = new L.Map(@element,
         center: [
           38.1, 5.6
