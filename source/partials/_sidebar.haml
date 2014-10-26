@@ -1,34 +1,41 @@
 %p(data-bind="visible: countryName() == ''") Mit der Maus über Länder fahren um mehr Informationen zu bekommen.
 .country-info(data-bind="visible: countryName().length > 0")
   %h2(data-bind="text: countryName")
+  %h3 German Arms Exports
   %ul.exports
     %li
       .title
-        Value of approved arms export licenses 2013
-      .value(data-bind="text: formatToMillions(exports2013())")
-    %li
-      .title
-        approved arms export
+        Approved arms export licenses
       .value
         %span(data-bind="css: yesNoCss(armsExports()), text: yesNoText(armsExports())")
     %li
       .title
-        Actual exports of military weapons
-      .value
-        %span(data-bind="css: yesNoCss(weaponsExports()), text: yesNoText(weaponsExports())")
+        Volume of arms export licenses 2013
+      .value(data-bind="text: formatToMillions(exports2013())")
     %li.sum(data-bind="visible: armsExports")
       .title
-        Value of approved arms export licenses 1999-2013
+        Value of arms export licenses 1999-2013
       .value(data-bind="text: formatToMillions(germanArmsExport())")
+    %li
+      .title
+        Actual exports of weapons of war
+      .value
+        %span(data-bind="css: yesNoCss(weaponsExports()), text: yesNoText(weaponsExports())")
+    %li
+      .title
+        Volume of exports of weapons of war 2013
+      .value(data-bind="text: formatToMillions(exports2013())")
     %li.sum(data-bind="visible: weaponsExports")
       .title
-        Actual exports of military weapons 1999-2013
+        Volume of exports of weapons of war 1999-2013
       .value(data-bind="text: formatToMillions(germanWeaponsExport())")
   .ranks
     %ul.rank.gmi
       %li GMI-Rank
       %li.value(data-bind="text: gmiRank")
+      %li of
       %li.count(data-bind="text: gmiCountryCount")
+  %h3 EU Common Position for Arms Exports criteria
   %ul.categories
     %li.category
       .category-title
@@ -67,21 +74,21 @@
         %li.light.green(data-bind="css: { active: greenActive }")
     %li.category
       .category-title
-        membership in un conventions
+        Membership in UN Conventions
       %ul.signal(data-bind="with: membershipUN")
         %li.light.red(data-bind="css: { active: redActive }")
         %li.light.yellow(data-bind="css: { active: yellowActive }")
         %li.light.green(data-bind="css: { active: greenActive }")
     %li.category
       .category-title
-        arms export control
+        Arms Export Control
       %ul.signal(data-bind="with: armsExportControl")
         %li.light.red(data-bind="css: { active: redActive }")
         %li.light.yellow(data-bind="css: { active: yellowActive }")
         %li.light.green(data-bind="css: { active: greenActive }")
     %li.category
       .category-title
-        military/ non-military balance
+        Military/ Non-military Balance
       %ul.signal(data-bind="with: militaryBalance")
         %li.light.red(data-bind="css: { active: redActive }")
         %li.light.yellow(data-bind="css: { active: yellowActive }")
