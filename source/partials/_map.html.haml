@@ -8,12 +8,14 @@
           %a(data-bind="text: name, click: $parent.zoomToCountry")
     #legend
       = partial 'partials/legend'
+    #filter-explanation(data-bind="visible: explanation().length > 0")
+      %p(data-bind="text: explanation")
+    #filter
+      #type-filter
+        %ul(data-bind="foreach: layers")
+          %li(data-bind="css: { active: $parent.activeLayer() == $data},click: $parent.showLayer, event: { mouseover: $parent.showExplanation, mouseout: $parent.showCurrentExplanation }")
+            .indicator(data-bind="text: text ")
+      #volume
   #misc
     #info
       = partial 'partials/sidebar'
-  #filter
-    #type-filter
-      %ul(data-bind="foreach: layers")
-        %li(data-bind="css: { active: $parent.activeLayer() == $data},click: $parent.showLayer")
-          .indicator(data-bind="text: text ")
-    #volume
