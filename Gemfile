@@ -6,6 +6,8 @@ gem "middleman", "~>3.3.3"
 gem "middleman-deploy"
 gem 'compass', '~> 1.0.0.alpha.21'
 
+gem 'middleman-sprockets'
+
 # Live-reloading plugin
 gem "middleman-livereload", "~> 3.1.0"
 
