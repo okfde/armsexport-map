@@ -4,5 +4,6 @@
 //= require 'topojson'
 //= require 'underscore'
 //= require 'jquery'
+//= require 'L.EasyButton'
 //= require_tree .
 

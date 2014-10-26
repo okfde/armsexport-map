@@ -36,9 +36,9 @@
 # activate :automatic_image_sizes
 
 # Reload the browser automatically whenever files change
-# configure :development do
-#   activate :livereload
-# end
+configure :development do
+  activate :livereload
+end
 
 # Methods defined in the helpers block are available in templates
 # helpers do
@@ -63,6 +63,7 @@ sprockets.import_asset 'topojson'
 sprockets.import_asset 'underscore'
 sprockets.import_asset 'jquery'
 sprockets.import_asset 'leaflet-omnivore'
+sprockets.import_asset 'L.EasyButton'
 sprockets.import_asset 'mapbox.js/mapbox'
 
 # Build-specific configuration
