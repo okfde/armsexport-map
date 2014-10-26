@@ -23,6 +23,8 @@
     "d3":"",
     "topojson":"",
     "knockoutjs":"",
-    "queue-async":""
+    "queue-async":"",
+    "jquery":"",
+    "leaflet-omnivore":""
   }
 }
