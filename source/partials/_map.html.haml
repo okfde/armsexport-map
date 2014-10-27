@@ -1,7 +1,7 @@
 %h1 BICC
 #map-container
   #map
-    .search
+    .search(data-bind="visible: search")
       %input(data-bind="value: searchCountry, valueUpdate: 'keyup'" placeholder="Search for a country")
       %ul(data-bind="visible: searchedCountries().length > 0, foreach: searchedCountries")
         %li

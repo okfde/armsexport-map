@@ -2,13 +2,18 @@ class BICC
   constructor: (@element, @country, typeObj) ->
     @type = typeObj.value
     @typeText = typeObj.text
-    @mapLayer = new L.TileLayer("http://{s}.tiles.mapbox.com/v3/codeformuenster.ino9j865/{z}/{x}/{y}.png")
+    @mapLayer = new L.TileLayer(
+      "http://{s}.tiles.mapbox.com/v3/codeformuenster.ino9j865/{z}/{x}/{y}.png",
+      { continuousWorld: false, noWrap: true }
+    )
     @map = new L.Map(@element,
         center: [
           38.1, 5.6
         ]
         zoom: 2
     ).addLayer(@mapLayer)
+    L.easyButton('fa-globe',@worldZoom,'',@map)
+    L.easyButton('fa-search',@search,'',@map)
     @conduct_legend = @country.conductLegendText
     @colors = @country.conductColors
     @gmi_colors = ['rgb(255,255,178)','rgb(254,204,92)','rgb(253,141,60)','rgb(240,59,32)','rgb(189,0,38)'].reverse()
@@ -35,6 +40,12 @@ class BICC
       fillColor: @countryColorForFeature(feature)
       weight: 0
     }
+
+  search: =>
+    @country.search(!@country.search())
+
+  worldZoom: =>
+    @map.setView([38.1, 5.6],2)
 
   typeValue: (feature)->
     data = @countryData(feature)
@@ -201,6 +212,7 @@ Country = ->
   self.exports2013 = ko.observable(0)
   self.warWeapons2013 = ko.observable(0)
   self.explanation = ko.observable(self.layers[0].explanation)
+  self.search = ko.observable(false)
 
   self.searchedCountries = ko.dependentObservable( ->
     search = self.searchCountry().toLowerCase()
