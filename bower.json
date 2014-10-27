@@ -25,6 +25,7 @@
     "knockoutjs":"",
     "queue-async":"",
     "jquery":"",
-    "leaflet-omnivore":""
+    "leaflet-omnivore":"",
+    "L.EasyButton":""
   }
 }
