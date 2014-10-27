@@ -21,10 +21,10 @@
         Actual exports of weapons of war
       .value
         %span(data-bind="css: yesNoCss(weaponsExports()), text: yesNoText(weaponsExports())")
-    %li
+    %li(data-bind="visible: weaponsExports")
       .title
         Volume of exports of weapons of war 2013
-      .value(data-bind="text: formatToMillions(exports2013())")
+      .value(data-bind="text: formatToMillions(warWeapons2013())")
     %li.sum(data-bind="visible: weaponsExports")
       .title
         Volume of exports of weapons of war 1999-2013

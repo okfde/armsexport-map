@@ -102,12 +102,12 @@ class BICC
     @country.countryName(data.country_e)
     @country.germanArmsExport(data.sum_german_armsexports)
     @country.germanWeaponsExport(data.sum_german_kweaponsexport)
-    @country.countryReport(data["link country report/laenderportrait"])
     exports = _.findWhere(@exportData, {
       iso3_code: data.iso3_code
       year: '2013-01-01'
     } )
     @country.exports2013(exports.gesamt)
+    @country.warWeapons2013(exports.war_weapons)
 
   showDetailData: (event) =>
     unless @country.locked
@@ -199,6 +199,7 @@ Country = ->
   self.gmiCountryCount = ko.observable(0)
   self.searchCountry = ko.observable('')
   self.exports2013 = ko.observable(0)
+  self.warWeapons2013 = ko.observable(0)
   self.explanation = ko.observable(self.layers[0].explanation)
 
   self.searchedCountries = ko.dependentObservable( ->
