@@ -93,4 +93,9 @@
         %li.light.red(data-bind="css: { active: redActive }")
         %li.light.yellow(data-bind="css: { active: yellowActive }")
         %li.light.green(data-bind="css: { active: greenActive }")
-  %a(data-bind="attr: { href: countryReport }") Länderreport
+  .details
+    %ul
+      %li
+        %a.fa-info-circle(href="http://ruestungsexport.info/index.php/laenderportraits" target="_blank") Country Portraits
+      %li
+        %a.fa-info-circle(data-bind="attr: { href: countryReportLink }" target="_blank") Country details

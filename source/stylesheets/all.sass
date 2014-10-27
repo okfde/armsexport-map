@@ -116,6 +116,7 @@ $grey: #cecece
       padding: 10px
       font-size: 0.75em
       .categories
+        border-bottom: 1px dashed #eee
         li.category
           @include clearfix
           margin: 5px 0
@@ -168,7 +169,12 @@ $grey: #cecece
             &.count
               border-right: none
               padding: 0 3px
-
+      .details
+        text-align: left
+        margin: 5px 0
+        a
+          text-align: left
+          padding: 0 0 0 20px
   #filter
     position: absolute
     z-index: 2

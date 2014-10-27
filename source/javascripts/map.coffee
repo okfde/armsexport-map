@@ -191,7 +191,7 @@ Country = ->
   self.countryName = ko.observable('')
   self.germanArmsExport = ko.observable('0')
   self.germanWeaponsExport = ko.observable('0')
-  self.countryReport = ko.observable('')
+  self.countryReportLink = ko.observable('')
   self.countryData = ko.observable()
   self.armsExports = ko.observable(false)
   self.weaponsExports = ko.observable(false)
@@ -229,6 +229,7 @@ Country = ->
     if newValue
       self.armsExports(if parseInt(self.countryData()["armsexport_yesno"]) == 1 then true else false)
       self.weaponsExports(if parseInt(self.countryData()["kweaponsexport_yesno"]) == 1 then true else false)
+      self.countryReportLink("http://ruestungsexport.info/index.php/database2?page=database2&iso_code=#{self.countryData()["iso3_code"]}")
       self.armsEmbargo({
         redActive: self.redActive("1")
         yellowActive: self.yellowActive("1")
