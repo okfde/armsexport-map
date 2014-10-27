@@ -11,13 +11,15 @@ body
   text-align: center
   font-family: sans-serif
 
-$map-height: 600px
+$map-height: 700px
 $green: #78A830
 $yellow: #F0A800
 $red: #A72B19
 $green-legend: rgba(120,168,48, 0.5)
 $yellow-legend: rgba(240,168,0, 0.5)
 $red-legend: rgba(167,43,25,0.5)
+$grey-transparent: rgba(244,244,244,0.8)
+$grey: #cecece
 #map-container
   @include outer-container()
   position: relative
@@ -30,8 +32,8 @@ $red-legend: rgba(167,43,25,0.5)
       position: absolute
       border-top: 1px solid #cecece
       border-left: 1px solid #cecece
-      background: rgba(244,244,244,0.8)
-      bottom: 0
+      background: $grey-transparent
+      bottom: 90px
       right: 0
       font-size: 0.8em
       padding: 10px 20px 20px
@@ -85,21 +87,39 @@ $red-legend: rgba(167,43,25,0.5)
           padding: 2px 10px
           &:hover
             background: #ccc
+    #filter-explanation
+      position: absolute
+      bottom: 90px
+      left: 20%
+      margin: 0 auto
+      width: 60%
+      background: $grey-transparent
+      z-index: 10
+      padding: 0.5em
+      font-size: 1.2em
+      p
+        margin-bottom: 0
+      a
+        text-align: left
   #misc
     @include span-columns(3)
     background: #fff
-    height: $map-height+80
+    height: $map-height
     position: relative
     #info
       h2
         text-align: left
         font-size: 1.4em
+      h5
+        text-align: left
+        font-size: 1em
       padding: 10px
       font-size: 0.75em
       .categories
+        border-bottom: 1px dashed #eee
         li.category
           @include clearfix
-          margin: 8px 0
+          margin: 5px 0
           text-align: left
           .category-title
             width: 70%
@@ -111,15 +131,16 @@ $red-legend: rgba(167,43,25,0.5)
         @include clearfix
         li
           text-align: left
-          margin: 5px 0
+          margin: 2px 0
           border-bottom: 1px dashed #eee
           .title
             font-style: italic
             color: #767676
+            font-size: 0.95em
           .value
             text-align: center
-            font-size: 1.4em
-            margin: 6px 0
+            font-size: 1.3em
+            margin: 3px 0
             font-weight: bold
             span
               padding: 4px
@@ -148,7 +169,12 @@ $red-legend: rgba(167,43,25,0.5)
             &.count
               border-right: none
               padding: 0 3px
-
+      .details
+        text-align: left
+        margin: 5px 0
+        a
+          text-align: left
+          padding: 0 0 0 20px
   #filter
     position: absolute
     z-index: 2
@@ -158,19 +184,20 @@ $red-legend: rgba(167,43,25,0.5)
     border-left: none
     padding: 0
     height: 80px
-    @include span-columns(9)
+    width: 100%
     #type-filter
       li
         padding: 0 10px
         float: left
-        width: 89px
+        width: 11%
         height: 80px
         display: table
-        border-left: 1px solid #e5e5e5
+        border-left: 1px solid $grey
+        cursor: pointer
         &.active
-          background: #E5E5E5
+          background: $grey
         .indicator
-          font-size: 0.7em
+          font-size: 1em
           line-height: 1.1em
           font-weight: bold
           height: 80px
