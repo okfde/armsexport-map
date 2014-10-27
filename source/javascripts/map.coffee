@@ -183,7 +183,7 @@ Country = ->
     { value: "6", text: 'membership in un conventions', explanation: 'Membership in Human Rights and Arms Control Conventions' }
     { value: "7", text: 'arms export control', explanation: 'Arms Export Controls' }
     { value: "8", text: 'military/ non-military balance', explanation: 'Danger of disproportionate military capacities impairing development' }
-    { value: "gmi", text: 'GMI', explanation: 'The Global Militarization Index (GMI) compares, for example, a country’s military expenditure with its Gross Domestic Product (GDP) and its health expenditure.', longExplanation: 'The Global Militarization Index (GMI) compares, for example, a country’s military expenditure with its Gross Domestic Product (GDP) and its health expenditure. 
+    { value: "gmi", text: 'GMI', explanation: 'The Global Militarization Index (GMI) compares, for example, a country’s military expenditure with its Gross Domestic Product (GDP) and its health expenditure.', longExplanation: 'The Global Militarization Index (GMI) compares, for example, a country’s military expenditure with its Gross Domestic Product (GDP) and its health expenditure.
     It contrasts the total number of military and paramilitary forces in a country with the number of physicians. Finally, it studies the number of heavy weapons available to a country’s armed forces. These and other indicators are used to determine a country’s ranking, which in turn makes it possible to measure the respective level of militarization in comparison to other countries.' }
   ]
   self.activeLayer = ko.observable(self.layers[0])
@@ -304,7 +304,7 @@ Country = ->
   self.showExplanation = (layer) ->
     self.explanation(layer.explanation)
 
-  self.showDetailedExplanation = () ->
+  self.showDetailedExplanation = ->
     self.explanation("")
 
   self.zoomToCountry = (feature) ->
