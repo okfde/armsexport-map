@@ -41,8 +41,8 @@ class BICC
       fillColor: @countryColorForFeature(feature)
       weight: 0
       fillOpacity: 0.8
-      stroke: "#777"
-      strokeWidth: 2
+      color: "#777"
+      weight: 0.6
     }
 
   search: =>
