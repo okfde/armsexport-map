@@ -55,27 +55,6 @@ class BICC
     data = @countryData(feature)
     if data then data[@type] else ""
 
-  full_country_name: (name) ->
-    name.split(",").reverse().join(" ").trim()
-
-  first_country_name_part: (name) ->
-    name.split(",").shift()
-
-  country_iso_from_name: (name) ->
-    iso_2_code = @country_iso_2_code(@full_country_name(name))
-    unless iso_2_code
-      iso_2_code = @country_iso_2_code(@first_country_name_part(name))
-    country = _.findWhere(@countryNames, { iso_2_code: iso_2_code } )
-    if country then country.iso_3_code else ""
-
-  country_iso_2_code: (name) ->
-    country = _.findWhere(@nomenklatura, { name: name })
-    if country
-      unless country.acronym
-        country = _.findWhere(@nomenklatura, { name: country.canonical } )
-      if country then country.acronym else ""
-    else
-      ""
   searchCountries: (searchTerm) ->
     layers = _.filter(@dataLayer.getLayers(), (d) -> d.feature.properties.name.match(new RegExp("#{searchTerm}","gi")))
     layers.map((d) -> {name: d.feature.properties.name, layer: d})
@@ -83,15 +62,14 @@ class BICC
   zoomTo: (layer) ->
     @map.fitBounds(layer.getBounds())
   countryData: (feature) ->
-    _.findWhere(@data, { iso3_code: @country_iso_from_name(feature.properties.name) } )
+    _.findWhere(@data, { iso3_code: feature.properties.iso_a3 } )
 
   countryColorForFeature: (feature)->
     unless @type == "gmi"
       value = @typeValue(feature)
       if value then @colors[parseInt(value)] else 'rgb(255,255,255)'
     else
-      iso_3_code = @country_iso_from_name(feature.properties.name)
-      @gmi_colors[@gmi.getQuantile(iso_3_code)] || '#ccc'
+      @gmi_colors[@gmi.getQuantile(feature.properties.iso_a3)] || '#ccc'
 
   setType: (type = {}) ->
     @type = type.value
