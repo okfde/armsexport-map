@@ -7,11 +7,12 @@ class BICC
       { continuousWorld: false, noWrap: true }
     )
     @map = new L.Map(@element,
+        crs: L.CRS.EPSG4326
         center: [
-          38.1, 5.6
+          10.1, 5.6
         ]
         zoom: 2
-    ).addLayer(@mapLayer)
+    )
     L.easyButton('fa-globe',@worldZoom,'',@map)
     L.easyButton('fa-search',@search,'',@map)
     @conduct_legend = @country.conductLegendText
@@ -39,6 +40,9 @@ class BICC
     {
       fillColor: @countryColorForFeature(feature)
       weight: 0
+      fillOpacity: 0.8
+      stroke: "#777"
+      strokeWidth: 2
     }
 
   search: =>
@@ -102,7 +106,7 @@ class BICC
       @data = data
 
   addDataLayer: ->
-    @dataLayer = omnivore.topojson('world-topo.json', null, @worldLayer)
+    @dataLayer = omnivore.geojson('wgs.geojson', null, @worldLayer)
     @dataLayer.addTo(@map)
 
   setDetailsForFeature: (feature) ->
