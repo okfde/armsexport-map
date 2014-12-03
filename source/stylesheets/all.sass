@@ -109,7 +109,8 @@ $grey: #cecece
     #info
       h2
         text-align: left
-        font-size: 1.4em
+        font-size: 1.5em
+        margin: 0.5em 0
       h5
         text-align: left
         font-size: 1em
@@ -143,13 +144,16 @@ $grey: #cecece
             margin: 3px 0
             font-weight: bold
             span
-              padding: 4px
-              color: #eee
+              color: #777
               text-transform: uppercase
-              &.red
-                background: $red
-              &.green
-                background: $green
+          &.yes-no
+            +clearfix
+            .title
+              float: left
+              margin: 4px 0 0 0
+            .value
+              float: left
+              margin: 0 0 0 10px
       .ranks
         margin: 5px 0
         border-bottom: 1px dashed #eee

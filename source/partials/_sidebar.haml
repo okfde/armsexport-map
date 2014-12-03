@@ -3,11 +3,11 @@
   %h2(data-bind="text: countryName")
   %h5 German Arms Exports
   %ul.exports
-    %li
+    %li.yes-no
       .title
         Approved arms export licenses
       .value
-        %span(data-bind="css: yesNoCss(armsExports()), text: yesNoText(armsExports())")
+        %span(data-bind="text: yesNoText(armsExports())")
     %li
       .title
         Volume of arms export licenses 2013
@@ -16,11 +16,11 @@
       .title
         Value of arms export licenses 1999-2013
       .value(data-bind="text: formatToMillions(germanArmsExport())")
-    %li
+    %li.yes-no
       .title
         Actual exports of weapons of war
       .value
-        %span(data-bind="css: yesNoCss(weaponsExports()), text: yesNoText(weaponsExports())")
+        %span(data-bind="text: yesNoText(weaponsExports())")
     %li(data-bind="visible: weaponsExports")
       .title
         Volume of exports of weapons of war 2013
