@@ -130,10 +130,13 @@ $grey: #cecece
             margin: 2px 0
       .exports
         @include clearfix
+        height: 260px
         li
           text-align: left
           margin: 2px 0
           border-bottom: 1px dashed #eee
+          &.last
+            border-bottom: none
           .title
             font-style: italic
             color: #767676
@@ -156,6 +159,8 @@ $grey: #cecece
               margin: 0 0 0 10px
       .ranks
         margin: 5px 0
+        padding-top: 5px
+        border-top: 1px dashed #eee
         border-bottom: 1px dashed #eee
         @include clearfix
         ul.rank

@@ -25,7 +25,7 @@
       .title
         Volume of exports of weapons of war 2013
       .value(data-bind="text: formatToMillions(warWeapons2013())")
-    %li.sum(data-bind="visible: weaponsExports")
+    %li.sum.last(data-bind="visible: weaponsExports")
       .title
         Volume of exports of weapons of war 1999-2013
       .value(data-bind="text: formatToMillions(germanWeaponsExport())")
