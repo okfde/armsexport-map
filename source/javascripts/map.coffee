@@ -191,9 +191,9 @@ Country = ->
     { value: "3", text: 'Internal Conflict', explanation: 'Internal Situation – Stability or Conflict' }
     { value: "4", text: 'Regional Security', explanation: 'Preservation of regional peace, security and stability' }
     { value: "5", text: 'Security of Member States', explanation: 'National Security of Member States and Allies' }
-    { value: "6", text: 'membership in un conventions', explanation: 'Membership in Human Rights and Arms Control Conventions' }
-    { value: "7", text: 'arms export control', explanation: 'Arms Export Controls' }
-    { value: "8", text: 'military/ non-military balance', explanation: 'Danger of disproportionate military capacities impairing development' }
+    { value: "6", text: 'Membership in UN Conventions', explanation: 'Membership in Human Rights and Arms Control Conventions' }
+    { value: "7", text: 'Arms Export Control', explanation: 'Arms Export Controls' }
+    { value: "8", text: 'Military/ Non-military Balance', explanation: 'Danger of disproportionate military capacities impairing development' }
     { value: "gmi", text: 'GMI', explanation: 'The Global Militarization Index (GMI) compares, for example, a country’s military expenditure with its Gross Domestic Product (GDP) and its health expenditure.', longExplanation: 'The Global Militarization Index (GMI) compares, for example, a country’s military expenditure with its Gross Domestic Product (GDP) and its health expenditure.
     It contrasts the total number of military and paramilitary forces in a country with the number of physicians. Finally, it studies the number of heavy weapons available to a country’s armed forces. These and other indicators are used to determine a country’s ranking, which in turn makes it possible to measure the respective level of militarization in comparison to other countries.' }
   ]
