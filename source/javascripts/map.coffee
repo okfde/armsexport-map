@@ -39,6 +39,7 @@ class BICC
     {
       fillColor: @countryColorForFeature(feature)
       weight: 0
+      smoothFactor: 0.3
     }
 
   search: =>
