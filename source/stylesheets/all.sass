@@ -18,7 +18,8 @@ $red: #A72B19
 $green-legend: rgba(120,168,48, 0.8)
 $yellow-legend: rgba(240,168,0, 0.8)
 $red-legend: rgba(167,43,25,0.8)
-$grey-transparent: rgba(244,244,244,0.8)
+$grey-transparent: rgba(243,243,243,0.8)
+$white: rgba(255,255,178, 0.8)
 $grey: #cecece
 #map-container
   @include outer-container()
@@ -31,8 +32,8 @@ $grey: #cecece
     background: rgba(167, 219, 216, 1)
     #legend
       position: absolute
-      border-top: 1px solid #cecece
-      border-left: 1px solid #cecece
+      border: 1px solid darken($grey-transparent, 10)
+      border-right: none
       background: $grey-transparent
       bottom: 90px
       right: 0
@@ -58,6 +59,8 @@ $grey: #cecece
               background: $yellow-legend
             &.green
               background: $green-legend
+            &.white
+              background: $white
             &.gmi-5
               background: rgba(255,255,178,0.5)
             &.gmi-4
@@ -98,6 +101,7 @@ $grey: #cecece
       z-index: 10
       padding: 0.5em
       font-size: 1.2em
+      border: 1px solid darken($grey-transparent, 10)
       p
         margin-bottom: 0
       a
