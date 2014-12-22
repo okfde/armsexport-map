@@ -1,41 +1,46 @@
 %p(data-bind="visible: countryName() == ''") Mit der Maus über Länder fahren um mehr Informationen zu bekommen.
 .country-info(data-bind="visible: countryName().length > 0")
   %h2 German Arms Exports
-  %h5(data-bind="text: countryName")
+  %h3.country(data-bind="text: countryName")
   %ul.exports
+    %li.title.first
+      Arms Export Licences
     %li.yes-no
       .title
-        Approved arms export licenses
+        Approved licenses
       .value
         %span(data-bind="text: yesNoText(armsExports())")
     %li
       .title
-        Volume of arms export licenses 2013
+        Volume in 2013
       .value(data-bind="text: formatToMillions(exports2013())")
-    %li.sum(data-bind="visible: armsExports")
+    %li.sum.last(data-bind="visible: armsExports")
       .title
-        Value of arms export licenses 1999-2013
+        Volume 1999-2013
       .value(data-bind="text: formatToMillions(germanArmsExport())")
+    %li.title
+      Exports of Weapons of war
     %li.yes-no
       .title
-        Actual exports of weapons of war
+        Actual exports
       .value
         %span(data-bind="text: yesNoText(weaponsExports())")
     %li(data-bind="visible: weaponsExports")
       .title
-        Volume of exports of weapons of war 2013
+        Volume in 2013
       .value(data-bind="text: formatToMillions(warWeapons2013())")
     %li.sum.last(data-bind="visible: weaponsExports")
       .title
-        Volume of exports of weapons of war 1999-2013
+        Volume 1999-2013
       .value(data-bind="text: formatToMillions(germanWeaponsExport())")
   .ranks
     %ul.rank.gmi
-      %li GMI-Rank
+      %li.title GMI-Rank
       %li.value(data-bind="text: gmiRank")
       %li of
       %li.count(data-bind="text: gmiCountryCount")
   %h5 EU Common Position for Arms Exports criteria
+  %h6 Export criteria
   %ul.categories
     %li.category
       .category-title
