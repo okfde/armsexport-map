@@ -43,6 +43,7 @@ class BICC
       fillOpacity: 0.8
       color: "#777"
       weight: 0.6
+      smoothFactor: 0.3
     }
 
   search: =>
