@@ -20,6 +20,7 @@ $yellow-legend: rgba(240,168,0, 0.8)
 $red-legend: rgba(167,43,25,0.8)
 $grey-transparent: rgba(244,244,244,0.8)
 $grey: #cecece
+$map-blue: #9DD2F5
 #map-container
   @include outer-container()
   position: relative
@@ -28,7 +29,7 @@ $grey: #cecece
     @include span-columns(9)
     @include omega()
     height: $map-height
-    background: rgba(167, 219, 216, 1)
+    background: $map-blue
     #legend
       position: absolute
       border-top: 1px solid #cecece
