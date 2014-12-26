@@ -1,4 +1,4 @@
-%p(data-bind="visible: countryName() == ''") Mit der Maus über Länder fahren um mehr Informationen zu bekommen.
+%p(data-bind="visible: countryName() == ''") Hover over countries to see more details; click to lock current country; close info window to release lock
 .country-info(data-bind="visible: countryName().length > 0")
   %h2 German Arms Exports
   %h3.country(data-bind="text: countryName")
