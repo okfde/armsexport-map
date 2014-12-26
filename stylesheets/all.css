@@ -687,15 +687,27 @@ body {
       #map-container #misc #info h2 {
         text-align: left;
         font-size: 1.5em;
-        margin: 0.5em 0; }
+        margin: 0 0 0.3em 0; }
       /* line 120, /Development/work/okf/entwicklungsbarometer/map/middleman-template/source/stylesheets/all.sass */
+      #map-container #misc #info h3 {
+        text-align: left;
+        font-size: 1.4em; }
+        /* line 123, /Development/work/okf/entwicklungsbarometer/map/middleman-template/source/stylesheets/all.sass */
+        #map-container #misc #info h3.country {
+          color: #477dca; }
+      /* line 125, /Development/work/okf/entwicklungsbarometer/map/middleman-template/source/stylesheets/all.sass */
       #map-container #misc #info h5 {
         text-align: left;
-        font-size: 1em; }
-      /* line 125, /Development/work/okf/entwicklungsbarometer/map/middleman-template/source/stylesheets/all.sass */
+        font-size: 1em;
+        color: #477dca; }
+      /* line 129, /Development/work/okf/entwicklungsbarometer/map/middleman-template/source/stylesheets/all.sass */
+      #map-container #misc #info h6 {
+        text-align: left;
+        font-size: 0.95em; }
+      /* line 134, /Development/work/okf/entwicklungsbarometer/map/middleman-template/source/stylesheets/all.sass */
       #map-container #misc #info .categories {
         border-bottom: 1px dashed #eeeeee; }
-        /* line 127, /Development/work/okf/entwicklungsbarometer/map/middleman-template/source/stylesheets/all.sass */
+        /* line 136, /Development/work/okf/entwicklungsbarometer/map/middleman-template/source/stylesheets/all.sass */
         #map-container #misc #info .categories li.category {
           margin: 5px 0;
           text-align: left; }
@@ -704,62 +716,81 @@ body {
             content: "";
             display: table;
             clear: both; }
-          /* line 131, /Development/work/okf/entwicklungsbarometer/map/middleman-template/source/stylesheets/all.sass */
+          /* line 140, /Development/work/okf/entwicklungsbarometer/map/middleman-template/source/stylesheets/all.sass */
           #map-container #misc #info .categories li.category .category-title {
             width: 70%;
             float: left; }
-          /* line 134, /Development/work/okf/entwicklungsbarometer/map/middleman-template/source/stylesheets/all.sass */
+          /* line 143, /Development/work/okf/entwicklungsbarometer/map/middleman-template/source/stylesheets/all.sass */
           #map-container #misc #info .categories li.category .signal {
             float: right;
             margin: 2px 0; }
-      /* line 15, /Development/work/okf/entwicklungsbarometer/map/middleman-template/source/stylesheets/bourbon/addons/_clearfix.scss */
-      #map-container #misc #info .exports:after {
-        content: "";
-        display: table;
-        clear: both; }
-      /* line 139, /Development/work/okf/entwicklungsbarometer/map/middleman-template/source/stylesheets/all.sass */
-      #map-container #misc #info .exports li {
-        text-align: left;
-        margin: 2px 0;
-        border-bottom: 1px dashed #eeeeee; }
-        /* line 143, /Development/work/okf/entwicklungsbarometer/map/middleman-template/source/stylesheets/all.sass */
-        #map-container #misc #info .exports li .title {
-          font-style: italic;
-          color: #767676;
-          font-size: 0.95em; }
-        /* line 147, /Development/work/okf/entwicklungsbarometer/map/middleman-template/source/stylesheets/all.sass */
-        #map-container #misc #info .exports li .value {
-          text-align: center;
-          font-size: 1.3em;
-          margin: 3px 0;
-          font-weight: bold; }
-          /* line 152, /Development/work/okf/entwicklungsbarometer/map/middleman-template/source/stylesheets/all.sass */
-          #map-container #misc #info .exports li .value span {
-            color: #777777;
-            text-transform: uppercase; }
+      /* line 146, /Development/work/okf/entwicklungsbarometer/map/middleman-template/source/stylesheets/all.sass */
+      #map-container #misc #info .exports {
+        height: 280px; }
         /* line 15, /Development/work/okf/entwicklungsbarometer/map/middleman-template/source/stylesheets/bourbon/addons/_clearfix.scss */
-        #map-container #misc #info .exports li.yes-no:after {
+        #map-container #misc #info .exports:after {
           content: "";
           display: table;
           clear: both; }
-        /* line 157, /Development/work/okf/entwicklungsbarometer/map/middleman-template/source/stylesheets/all.sass */
-        #map-container #misc #info .exports li.yes-no .title {
-          float: left;
-          margin: 4px 0 0 0; }
-        /* line 160, /Development/work/okf/entwicklungsbarometer/map/middleman-template/source/stylesheets/all.sass */
-        #map-container #misc #info .exports li.yes-no .value {
-          float: left;
-          margin: 0 0 0 10px; }
-      /* line 163, /Development/work/okf/entwicklungsbarometer/map/middleman-template/source/stylesheets/all.sass */
+        /* line 149, /Development/work/okf/entwicklungsbarometer/map/middleman-template/source/stylesheets/all.sass */
+        #map-container #misc #info .exports li {
+          text-align: left;
+          margin: 2px 0;
+          border-bottom: 1px dashed #eeeeee; }
+          /* line 153, /Development/work/okf/entwicklungsbarometer/map/middleman-template/source/stylesheets/all.sass */
+          #map-container #misc #info .exports li.last {
+            border-bottom: none; }
+          /* line 155, /Development/work/okf/entwicklungsbarometer/map/middleman-template/source/stylesheets/all.sass */
+          #map-container #misc #info .exports li.title {
+            font-weight: bold;
+            border-bottom: none;
+            border-top: 1px dashed #477dca;
+            padding-top: 2px;
+            margin-bottom: 0;
+            color: #477dca; }
+          /* line 162, /Development/work/okf/entwicklungsbarometer/map/middleman-template/source/stylesheets/all.sass */
+          #map-container #misc #info .exports li .title {
+            font-style: italic;
+            color: #767676;
+            font-size: 0.95em; }
+          /* line 166, /Development/work/okf/entwicklungsbarometer/map/middleman-template/source/stylesheets/all.sass */
+          #map-container #misc #info .exports li .value {
+            text-align: center;
+            font-size: 1.3em;
+            margin: 3px 0;
+            font-weight: bold; }
+            /* line 171, /Development/work/okf/entwicklungsbarometer/map/middleman-template/source/stylesheets/all.sass */
+            #map-container #misc #info .exports li .value span {
+              color: #777777;
+              text-transform: uppercase; }
+          /* line 174, /Development/work/okf/entwicklungsbarometer/map/middleman-template/source/stylesheets/all.sass */
+          #map-container #misc #info .exports li.yes-no {
+            margin-top: 0; }
+            /* line 15, /Development/work/okf/entwicklungsbarometer/map/middleman-template/source/stylesheets/bourbon/addons/_clearfix.scss */
+            #map-container #misc #info .exports li.yes-no:after {
+              content: "";
+              display: table;
+              clear: both; }
+            /* line 177, /Development/work/okf/entwicklungsbarometer/map/middleman-template/source/stylesheets/all.sass */
+            #map-container #misc #info .exports li.yes-no .title {
+              float: left;
+              margin: 4px 0 0 0; }
+            /* line 180, /Development/work/okf/entwicklungsbarometer/map/middleman-template/source/stylesheets/all.sass */
+            #map-container #misc #info .exports li.yes-no .value {
+              float: left;
+              margin: 0 0 0 10px; }
+      /* line 183, /Development/work/okf/entwicklungsbarometer/map/middleman-template/source/stylesheets/all.sass */
       #map-container #misc #info .ranks {
         margin: 5px 0;
-        border-bottom: 1px dashed #eeeeee; }
+        padding-top: 5px;
+        border-top: 1px dashed #477dca;
+        border-bottom: 1px dashed #477dca; }
         /* line 15, /Development/work/okf/entwicklungsbarometer/map/middleman-template/source/stylesheets/bourbon/addons/_clearfix.scss */
         #map-container #misc #info .ranks:after {
           content: "";
           display: table;
           clear: both; }
-        /* line 167, /Development/work/okf/entwicklungsbarometer/map/middleman-template/source/stylesheets/all.sass */
+        /* line 189, /Development/work/okf/entwicklungsbarometer/map/middleman-template/source/stylesheets/all.sass */
         #map-container #misc #info .ranks ul.rank {
           float: left;
           border: 1px solid #dddddd;
@@ -770,27 +801,31 @@ body {
             content: "";
             display: table;
             clear: both; }
-          /* line 173, /Development/work/okf/entwicklungsbarometer/map/middleman-template/source/stylesheets/all.sass */
+          /* line 195, /Development/work/okf/entwicklungsbarometer/map/middleman-template/source/stylesheets/all.sass */
           #map-container #misc #info .ranks ul.rank li {
             float: left;
             border-right: 1px solid #cccccc;
             padding: 0 5px; }
-            /* line 177, /Development/work/okf/entwicklungsbarometer/map/middleman-template/source/stylesheets/all.sass */
+            /* line 199, /Development/work/okf/entwicklungsbarometer/map/middleman-template/source/stylesheets/all.sass */
+            #map-container #misc #info .ranks ul.rank li.title {
+              color: #477dca;
+              font-weight: bold; }
+            /* line 202, /Development/work/okf/entwicklungsbarometer/map/middleman-template/source/stylesheets/all.sass */
             #map-container #misc #info .ranks ul.rank li.value {
               background: #ececec; }
-            /* line 179, /Development/work/okf/entwicklungsbarometer/map/middleman-template/source/stylesheets/all.sass */
+            /* line 204, /Development/work/okf/entwicklungsbarometer/map/middleman-template/source/stylesheets/all.sass */
             #map-container #misc #info .ranks ul.rank li.count {
               border-right: none;
               padding: 0 3px; }
-      /* line 182, /Development/work/okf/entwicklungsbarometer/map/middleman-template/source/stylesheets/all.sass */
+      /* line 207, /Development/work/okf/entwicklungsbarometer/map/middleman-template/source/stylesheets/all.sass */
       #map-container #misc #info .details {
         text-align: left;
         margin: 5px 0; }
-        /* line 185, /Development/work/okf/entwicklungsbarometer/map/middleman-template/source/stylesheets/all.sass */
+        /* line 210, /Development/work/okf/entwicklungsbarometer/map/middleman-template/source/stylesheets/all.sass */
         #map-container #misc #info .details a {
           text-align: left;
-          padding: 0 0 0 20px; }
-  /* line 188, /Development/work/okf/entwicklungsbarometer/map/middleman-template/source/stylesheets/all.sass */
+          padding: 0; }
+  /* line 213, /Development/work/okf/entwicklungsbarometer/map/middleman-template/source/stylesheets/all.sass */
   #map-container #filter {
     position: absolute;
     z-index: 2;
@@ -801,7 +836,7 @@ body {
     padding: 0;
     height: 80px;
     width: 100%; }
-    /* line 199, /Development/work/okf/entwicklungsbarometer/map/middleman-template/source/stylesheets/all.sass */
+    /* line 224, /Development/work/okf/entwicklungsbarometer/map/middleman-template/source/stylesheets/all.sass */
     #map-container #filter #type-filter li {
       padding: 0 10px;
       float: left;
@@ -810,10 +845,10 @@ body {
       display: table;
       border-left: 1px solid #cecece;
       cursor: pointer; }
-      /* line 207, /Development/work/okf/entwicklungsbarometer/map/middleman-template/source/stylesheets/all.sass */
+      /* line 232, /Development/work/okf/entwicklungsbarometer/map/middleman-template/source/stylesheets/all.sass */
       #map-container #filter #type-filter li.active {
         background: #cecece; }
-      /* line 209, /Development/work/okf/entwicklungsbarometer/map/middleman-template/source/stylesheets/all.sass */
+      /* line 234, /Development/work/okf/entwicklungsbarometer/map/middleman-template/source/stylesheets/all.sass */
       #map-container #filter #type-filter li .indicator {
         font-size: 1em;
         line-height: 1.1em;
@@ -822,7 +857,7 @@ body {
         display: table-cell;
         vertical-align: middle; }
 
-/* line 216, /Development/work/okf/entwicklungsbarometer/map/middleman-template/source/stylesheets/all.sass */
+/* line 241, /Development/work/okf/entwicklungsbarometer/map/middleman-template/source/stylesheets/all.sass */
 ul.signal {
   list-style: none;
   border: 1px solid #cccccc;
@@ -833,21 +868,21 @@ ul.signal {
     content: "";
     display: table;
     clear: both; }
-  /* line 222, /Development/work/okf/entwicklungsbarometer/map/middleman-template/source/stylesheets/all.sass */
+  /* line 247, /Development/work/okf/entwicklungsbarometer/map/middleman-template/source/stylesheets/all.sass */
   ul.signal li.light {
     float: left;
     border-right: 1px solid #cccccc;
     width: 15px;
     height: 15px; }
-    /* line 227, /Development/work/okf/entwicklungsbarometer/map/middleman-template/source/stylesheets/all.sass */
+    /* line 252, /Development/work/okf/entwicklungsbarometer/map/middleman-template/source/stylesheets/all.sass */
     ul.signal li.light.green {
       border-right: none; }
-      /* line 229, /Development/work/okf/entwicklungsbarometer/map/middleman-template/source/stylesheets/all.sass */
+      /* line 254, /Development/work/okf/entwicklungsbarometer/map/middleman-template/source/stylesheets/all.sass */
       ul.signal li.light.green.active {
         background: #78a830; }
-    /* line 231, /Development/work/okf/entwicklungsbarometer/map/middleman-template/source/stylesheets/all.sass */
+    /* line 256, /Development/work/okf/entwicklungsbarometer/map/middleman-template/source/stylesheets/all.sass */
     ul.signal li.light.yellow.active {
       background: #f0a800; }
-    /* line 233, /Development/work/okf/entwicklungsbarometer/map/middleman-template/source/stylesheets/all.sass */
+    /* line 258, /Development/work/okf/entwicklungsbarometer/map/middleman-template/source/stylesheets/all.sass */
     ul.signal li.light.red.active {
       background: #a72b19; }

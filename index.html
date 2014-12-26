@@ -91,14 +91,17 @@
       </div>
       <div id='misc'>
         <div id='info'>
-          <p data-bind="visible: countryName() == ''">Mit der Maus über Länder fahren um mehr Informationen zu bekommen.</p>
+          <p data-bind="visible: countryName() == ''">Hover over countries to see more details; click to lock current country; close info window to release lock</p>
           <div class='country-info' data-bind='visible: countryName().length &gt; 0'>
-            <h2 data-bind='text: countryName'></h2>
-            <h5>German Arms Exports</h5>
+            <h2>German Arms Exports</h2>
+            <h3 class='country' data-bind='text: countryName'></h3>
             <ul class='exports'>
+              <li class='title first'>
+                Arms Export Licences
+              </li>
               <li class='yes-no'>
                 <div class='title'>
-                  Approved arms export licenses
+                  Approved licenses
                 </div>
                 <div class='value'>
                   <span data-bind='text: yesNoText(armsExports())'></span>
@@ -106,19 +109,22 @@
               </li>
               <li>
                 <div class='title'>
-                  Volume of arms export licenses 2013
+                  Volume in 2013
                 </div>
                 <div class='value' data-bind='text: formatToMillions(exports2013())'></div>
               </li>
-              <li class='sum' data-bind='visible: armsExports'>
+              <li class='sum last' data-bind='visible: armsExports'>
                 <div class='title'>
-                  Value of arms export licenses 1999-2013
+                  Volume 1999-2013
                 </div>
                 <div class='value' data-bind='text: formatToMillions(germanArmsExport())'></div>
               </li>
+              <li class='title'>
+                Exports of Weapons of war
+              </li>
               <li class='yes-no'>
                 <div class='title'>
-                  Actual exports of weapons of war
+                  Actual exports
                 </div>
                 <div class='value'>
                   <span data-bind='text: yesNoText(weaponsExports())'></span>
@@ -126,26 +132,27 @@
               </li>
               <li data-bind='visible: weaponsExports'>
                 <div class='title'>
-                  Volume of exports of weapons of war 2013
+                  Volume in 2013
                 </div>
                 <div class='value' data-bind='text: formatToMillions(warWeapons2013())'></div>
               </li>
-              <li class='sum' data-bind='visible: weaponsExports'>
+              <li class='sum last' data-bind='visible: weaponsExports'>
                 <div class='title'>
-                  Volume of exports of weapons of war 1999-2013
+                  Volume 1999-2013
                 </div>
                 <div class='value' data-bind='text: formatToMillions(germanWeaponsExport())'></div>
               </li>
             </ul>
             <div class='ranks'>
               <ul class='rank gmi'>
-                <li>GMI-Rank</li>
+                <li class='title'>GMI-Rank</li>
                 <li class='value' data-bind='text: gmiRank'></li>
                 <li>of</li>
                 <li class='count' data-bind='text: gmiCountryCount'></li>
               </ul>
             </div>
-            <h5>EU Common Position for Arms Exports criteria</h5>
+            <h5>EU Common Position for Arms Exports</h5>
+            <h6>Export criteria</h6>
             <ul class='categories'>
               <li class='category'>
                 <div class='category-title'>
@@ -231,10 +238,16 @@
             <div class='details'>
               <ul>
                 <li>
-                  <a class='fa-info-circle' href='http://ruestungsexport.info/index.php/laenderportraits' target='_blank'>Country Portraits</a>
+                  <a href='http://ruestungsexport.info/index.php/laenderportraits' target='_blank'>
+                    <i class='fa fa-info-circle'></i>
+                    Country Portraits
+                  </a>
                 </li>
                 <li>
-                  <a class='fa-info-circle' data-bind='attr: { href: countryReportLink }' target='_blank'>Country details</a>
+                  <a data-bind='attr: { href: countryReportLink }' target='_blank'>
+                    <i class='fa fa-info-circle'></i>
+                    Country details
+                  </a>
                 </li>
               </ul>
             </div>
