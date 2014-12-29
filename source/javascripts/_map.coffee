@@ -103,7 +103,7 @@ class BICC
       @data = data
 
   addDataLayer: ->
-    @dataLayer = omnivore.topojson('world-topo.json', null, @worldLayer)
+    @dataLayer = omnivore.topojson('data/world-topo.json', null, @worldLayer)
     @dataLayer.addTo(@map)
 
   setDetailsForFeature: (feature) ->
