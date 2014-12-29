@@ -4,9 +4,6 @@
 @import "neat/neat"
 @import "base/base"
 
-@import 'components/footer'
-@import 'components/navigation'
-
 body
   background: #d4d4d4 url("../images/background.png")
   text-align: center
@@ -237,22 +234,22 @@ $grey: #cecece
           height: 80px
           display: table-cell
           vertical-align: middle
-ul.signal
-  list-style: none
-  border: 1px solid #ccc
-  @include clearfix
-  width: 47px
-  float: left
-  li.light
+  ul.signal
+    list-style: none
+    border: 1px solid #ccc
+    @include clearfix
+    width: 47px
     float: left
-    border-right: 1px solid #ccc
-    width: 15px
-    height: 15px
-    &.green
-      border-right: none
-      &.active
-        background: $green
-    &.yellow.active
-      background: $yellow
-    &.red.active
-      background: $red
+    li.light
+      float: left
+      border-right: 1px solid #ccc
+      width: 15px
+      height: 15px
+      &.green
+        border-right: none
+        &.active
+          background: $green
+      &.yellow.active
+        background: $yellow
+      &.red.active
+        background: $red
