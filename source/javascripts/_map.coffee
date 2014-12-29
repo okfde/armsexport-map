@@ -1,3 +1,4 @@
+dataFolder = "data"
 class BICC
   constructor: (@element, @country, typeObj) ->
     @type = typeObj.value
@@ -99,11 +100,11 @@ class BICC
     @addDataLayer()
 
   addWorldLayerData: (url) ->
-    @dsv "data/bicc_armsexports_2013.csv", (data) =>
+    @dsv "#{dataFolder}/bicc_armsexports_2013.csv", (data) =>
       @data = data
 
   addDataLayer: ->
-    @dataLayer = omnivore.topojson('data/world-topo.json', null, @worldLayer)
+    @dataLayer = omnivore.topojson("#{dataFolder}/world-topo.json", null, @worldLayer)
     @dataLayer.addTo(@map)
 
   setDetailsForFeature: (feature) ->
@@ -126,11 +127,11 @@ class BICC
       @setDetailsForFeature(event.target.feature)
   getData: ->
     queue()
-      .defer(d3.csv, "data/iso_3166_2_countries.csv")
-      .defer(d3.csv, "data/nomenklatura.csv")
-      .defer(@dsv, "data/gmi_1990_2013_values.csv")
-      .defer(@dsv, "data/bicc_armsexports_2013.csv")
-      .defer(@dsv, "data/ruex_2000_2013.csv")
+      .defer(d3.csv, "#{dataFolder}/iso_3166_2_countries.csv")
+      .defer(d3.csv, "#{dataFolder}/nomenklatura.csv")
+      .defer(@dsv, "#{dataFolder}/gmi_1990_2013_values.csv")
+      .defer(@dsv, "#{dataFolder}/bicc_armsexports_2013.csv")
+      .defer(@dsv, "#{dataFolder}/ruex_2000_2013.csv")
       .await( (error, countries, nomenklatura, gmi, codeOfConduct, exportData) =>
         @nomenklatura = nomenklatura
         @countryNames = countries
