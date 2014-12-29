@@ -55,16 +55,6 @@ set :images_dir, 'images'
 
 activate :sprockets
 sprockets.append_path File.join "#{root}", "bower_components"
-sprockets.import_asset 'knockoutjs'
-sprockets.import_asset 'leaflet'
-sprockets.import_asset 'd3'
-sprockets.import_asset 'queue-async'
-sprockets.import_asset 'topojson'
-sprockets.import_asset 'underscore'
-sprockets.import_asset 'jquery'
-sprockets.import_asset 'leaflet-omnivore'
-sprockets.import_asset 'L.EasyButton'
-sprockets.import_asset 'mapbox.js/mapbox'
 
 # Build-specific configuration
 configure :build do
