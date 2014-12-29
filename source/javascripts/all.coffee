@@ -7,5 +7,5 @@
 //= require 'underscore'
 //= require 'jquery'
 //= require 'L.EasyButton'
-//= require_tree .
+//= require '_map'
 
